@@ -91,10 +91,7 @@ public class BasicOperations {
 				
 				root = stack.pop();
 			}
-			
-			
 		}
-		
 	}
 	
 	
@@ -154,6 +151,7 @@ public class BasicOperations {
 		
 	}
 	
+	
 	/**
 	 * postorder LRDTraversal - recursive
 	 * 
@@ -178,40 +176,139 @@ public class BasicOperations {
 	 * we will visit the node twice and only process the node during the 2nd visit
 	 * 
 	 * how to differentiate the two visits?
+	 * 
+	 * impelment by one stack
 	 */
-	public void LRDTraversal (BinaryNode root) {
+	public void LRDTraversalOneStack (BinaryNode root) {
+		
+		if (root == null)
+			return;
+
+		Stack<BinaryNode> stack = new Stack<BinaryNode>();
+		stack.push(root);
+		BinaryNode prev = null;
+		
+		while (!stack.isEmpty()) {
+			
+			BinaryNode current = stack.peek();
+			if(prev == null || prev.getLeftNode().equals(current) || prev.getRightNode().equals(current)){
+				
+				if(current.getLeftNode() != null)
+					stack.push(current.getLeftNode());
+				else if(current.getRightNode() != null)
+					stack.push(current.getRightNode());
+				else {
+					this.printNode(current);
+					stack.pop();
+					//current = stack.peek();
+				}
+			}
+			 // we are traversing up the tree from the left
+			if (current.getLeftNode().equals(prev)) {
+				if (current.getRightNode() != null)
+					stack.push(current.getRightNode());
+				else {
+					this.printNode(current);
+					stack.pop();
+					//current = stack.peek();
+				}
+			}
+			
+			  // we are traversing up the tree from the right
+			if (current.getRightNode().equals(prev)) {
+				this.printNode(current);
+				stack.pop();
+				//current = stack.peek();
+			}
+			
+			prev = current;
+		}
+
+	}
+	
+	/**
+	 * 
+	 *An alternative solution is to use two stacks. Try to work it out on a piece of paper. 
+	 *I think it is quite magical and beautiful. You will think that it works magically, 
+	 *but in fact it is doing a reversed pre-order traversal. That is, the order of traversal is a node, 
+	 *then its right child followed by its left child. This yields post-order traversal in reversed order.
+	 *Using a second stack, we could reverse it back to the correct order. 
+	 * 
+	 * LRD's reversed version -> DRL
+	 * 
+	 * @param root
+	 */
+	public void DRLTraversal (BinaryNode root) {
 		
 		if (root == null)
 			return;
 		else {
 			Stack<BinaryNode> stack = new Stack<BinaryNode>();
+			stack.push(root);
+			
+			while (!stack.isEmpty()) {
+				
+				while (root != null) {
+					this.printNode(root);
+					stack.push(root);
+					root = root.getRightNode();
+				}
+				
+				root = stack.pop();
+				root = root.getLeftNode();
+				
+			}
+			
+		}
+		
+	}
+ 	
+	/**
+	 * PostOrder traversal implemented by 2 stacks
+	 * 
+	 * @param root
+	 */
+	public void LRDTraversalTwoStack (BinaryNode root) {
+		
+		if (root == null)
+			return;
+		else {
+			Stack<BinaryNode> stack = new Stack<BinaryNode>();
+			Stack<BinaryNode> stackR = new Stack<BinaryNode>();
 			
 			while (true) {
 				
-				while (root != null){
+				while (root != null) {
+					//this.printNode(root);
+					stackR.push(root);
 					stack.push(root);
-					root = root.getLeftNode();
+					root = root.getRightNode();
 				}
 				
 				if (stack.isEmpty())
 					break;
 				
 				root = stack.pop();
-				this.printNode(root);
+				root = root.getLeftNode();
 				
 			}
 			
+			while (!stackR.isEmpty()) {
+				this.printNode(stackR.pop());
+			}
 			
 		}
+		
+		
 	}
-	
 	
 	public static void main (String[] args) {
 		
 		BinaryNode root = BinaryTree.buildBinaryTree1();
 		BasicOperations bo = new BasicOperations();
 		//#1. DLRTraversal recursive
-		bo.DLRTraveralR(root);
+		//bo.DLRTraveralR(root);
+		//bo.DLRTraversalHanlu(root);
 		//#2. DLRTraversal NON-recursive
 		//bo.DLRTraversal(root);
 		//#3. LDRTraversalR
@@ -219,10 +316,11 @@ public class BasicOperations {
 		//#4. LDRTraversal recursive
 		//bo.LDRTraversal(root);
 		//#5. LRDTraversal recursive
-		//bo.LRDTraversalR(root);
+		bo.LRDTraversalR(root);
+		//bo.LRDTraversalOneStack(root);
 	
-	
-		bo.DLRTraversalHanlu(root);
+		//bo.DRLTraversal(root);
+		//bo.LRDTraversalTwoStack(root);
 	}
 }
 
