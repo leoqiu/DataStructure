@@ -1,5 +1,7 @@
 package binarytree;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 import binarytree.elements.BinaryNode;
@@ -298,10 +300,42 @@ public class BasicOperations {
 			}
 			
 		}
-		
-		
 	}
-	
+
+
+    /**
+     *  Level order traverse a binary tree
+     *
+     * @param root
+     */
+    public void levelOrderTraversal (BinaryNode root) {
+
+        if (root == null)
+            return;
+        else {
+
+            Queue<BinaryNode> queue = new LinkedList<BinaryNode>();
+            BinaryNode current;
+            queue.offer(root);
+
+            while (!queue.isEmpty()) {
+
+                current = queue.poll();
+                this.printNode(current);
+
+                if(current.getLeftNode() != null)
+                    queue.offer(current.getLeftNode());
+                if(current.getRightNode() != null)
+                    queue.offer(current.getRightNode());
+
+
+            }
+
+
+        }
+
+    }
+
 	public static void main (String[] args) {
 		
 		BinaryNode root = BinaryTree.buildBinaryTree1();
@@ -316,11 +350,14 @@ public class BasicOperations {
 		//#4. LDRTraversal recursive
 		//bo.LDRTraversal(root);
 		//#5. LRDTraversal recursive
-		bo.LRDTraversalR(root);
+		//bo.LRDTraversalR(root);
 		//bo.LRDTraversalOneStack(root);
 	
 		//bo.DRLTraversal(root);
 		//bo.LRDTraversalTwoStack(root);
+
+        //level order traverse a binary tree
+        bo.levelOrderTraversal(root);
 
         //mac 1st
 	}
