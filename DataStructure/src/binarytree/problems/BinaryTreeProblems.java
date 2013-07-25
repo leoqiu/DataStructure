@@ -316,7 +316,7 @@ public class BinaryTreeProblems {
 
 
     /**
-     * Find All Path Sum
+     * #2 Find All Path Sum
      *
      * Given a binary tree and a sum, find all root-to-leaf paths where each path's
      * sum equals the given sum
@@ -324,13 +324,13 @@ public class BinaryTreeProblems {
      *
      * @param
      */
-    private ArrayList<ArrayList<Integer>> allPathSum (BinaryNode root, int sum) {
+    public ArrayList<ArrayList<Integer>> allPathSum (BinaryNode root, int sum) {
         ArrayList<ArrayList<Integer>> resultSet = new ArrayList<ArrayList<Integer>>();
         findPathSum(root, sum, new ArrayList<Integer>(), resultSet);
         return resultSet;
     }
 
-    public void findPathSum (BinaryNode root, int sum, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> resultSet) {
+    private void findPathSum (BinaryNode root, int sum, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> resultSet) {
 
         if(root == null)
             return;
@@ -354,6 +354,53 @@ public class BinaryTreeProblems {
 
     }
 
+    /**
+     * #3 Given a binary tree, find the maximum sum of a path, the path may start and
+     * end at any node
+     *
+     *
+     *
+     */
+
+    /**
+     * problem #20
+     *
+     * print out all root-to-leaf paths of a binary tree
+     *
+     * #1. a ArrayList<Integer> to store a single root-to-leaf path
+     * #2. a ArrayList<ArrayList<Integer>> to store all root-to-leaf paths
+     *
+     * @param
+     */
+    public ArrayList<ArrayList<Integer>> getRootToLeafPathList(BinaryNode root) {
+
+        ArrayList<ArrayList<Integer>> pathsList = new ArrayList<ArrayList<Integer>>();
+        collectRootToLeafPathList(root, new ArrayList<Integer>(), pathsList);
+        return pathsList;
+    }
+
+
+    private void collectRootToLeafPathList(BinaryNode root, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> pathList) {
+
+        if(root == null)
+            return;
+        else {
+
+            path.add(root.getiData());
+            //meet the leaf
+            if(root.getLeftNode() == null && root.getRightNode() == null) {
+                ArrayList<Integer> currentPath = new ArrayList<Integer>(path);
+                pathList.add(currentPath);
+            }
+
+            collectRootToLeafPathList(root.getLeftNode(), path, pathList);
+            collectRootToLeafPathList(root.getRightNode(), path, pathList);
+
+            path.remove(path.size() - 1);
+        }
+
+    }
+
 
     public static void main(String[] args) {
 
@@ -361,7 +408,7 @@ public class BinaryTreeProblems {
         BinaryNode root = BinaryTree.buildBinaryTree1();
 
         //problem #1
-        //bp.getMaxElementInBinaryTree(root);
+       //bp.getMaxElementInBinaryTree(root);
 
         //problem #5
         //bp.insertANodeIntoBinaryTree(root);
@@ -376,7 +423,10 @@ public class BinaryTreeProblems {
         //System.out.print(bp.hasPathSum(root, 66));
 
         //tree path problem #2
-        System.out.print(bp.allPathSum(root, 66));
+        //System.out.print(bp.allPathSum(root, 66));
+
+        //problem #20
+        System.out.print(bp.getRootToLeafPathList(root));
     }
 
 }
