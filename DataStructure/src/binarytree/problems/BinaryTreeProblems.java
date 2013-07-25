@@ -3,6 +3,8 @@ package binarytree.problems;
 import binarytree.elements.BinaryNode;
 import binarytree.elements.BinaryTree;
 
+import javax.swing.tree.TreeNode;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -203,6 +205,156 @@ public class BinaryTreeProblems {
 
     }
 
+
+    /**
+     * #problem-11 find the height of binary tree without recursion
+     *
+     * add null as level separator
+     *
+     * @param root
+     */
+    public void findHeightOfBinaryTree (BinaryNode root) {
+
+        if (root == null)
+            return;
+        else {
+            int sum = 0;
+            int level = 1;
+            Queue<BinaryNode> queue = new LinkedList<BinaryNode>();
+            queue.offer(root);
+            //use null as level seperator
+            queue.offer(null);
+            System.out.println("level #" + level + " summation is " + root.getiData());
+
+            while(!queue.isEmpty()) {
+                //dequeue and processing node
+                root = queue.poll();
+
+                //meet level separator
+                if(root == null) {
+                    if(!queue.isEmpty()){
+                        queue.offer(null);
+                        level++;
+                        System.out.println("level #" + level + " summation is " + sum);
+                        sum = 0;
+                    }
+                } else {
+                    if(root.getLeftNode() != null) {
+                        queue.offer(root.getLeftNode());
+                        sum =+ root.getLeftNode().getiData();
+                    }
+
+                    if(root.getRightNode() != null){
+                        queue.offer(root.getRightNode());
+                        sum =+ root.getRightNode().getiData();
+                    }
+
+                }
+
+            }
+
+            System.out.println("tree height is : " + level);
+        }
+
+    }
+
+    /**
+     * Check if two binary tree are structure identical
+     *
+     * @param root1
+     * @param root2
+     * @return
+     */
+    public boolean isTwoBinaryTreeIdentical (BinaryNode root1, BinaryNode root2) {
+
+        if(root1 == null && root2 == null)
+            return true;
+        if (root1 == null || root2 == null)
+            return false;
+
+        return (root1.getcData() == root2.getcData() && isTwoBinaryTreeIdentical(root1.getLeftNode(), root2.getLeftNode()) && isTwoBinaryTreeIdentical(root1.getRightNode(), root2.getRightNode()));
+
+
+    }
+
+    /**
+     * problem #18 calculate the diameter of a binary tree
+     *
+     * @param args
+     */
+
+    /**
+     * problem #20 Given a binary tree, print out all of its root-to-leaf paths
+     *
+     * @param args
+     */
+
+
+    /**
+     *
+     * reference - http://n00tc0d3r.blogspot.com/2013/01/tree-path-sum.html
+     *
+     * Find binary tree path sum problem
+     *
+     * #1. Given a binary tree and a sum, determine if the tree has a root-to-leaf path
+     * such that adding up all the values along the path equals the given sum
+     *
+     * @return
+     */
+    public boolean hasPathSum (BinaryNode root, int sum) {
+
+        if(root == null)
+            return false;
+
+        //if node is a leaf
+        if(root.getLeftNode() == null && root.getRightNode() == null)
+            return (sum == root.getiData());
+        else
+            return (hasPathSum(root.getLeftNode(), (sum - root.getiData())) || hasPathSum(root.getRightNode(), (sum - root.getiData())));
+
+    }
+
+
+    /**
+     * Find All Path Sum
+     *
+     * Given a binary tree and a sum, find all root-to-leaf paths where each path's
+     * sum equals the given sum
+     *
+     *
+     * @param
+     */
+    private ArrayList<ArrayList<Integer>> allPathSum (BinaryNode root, int sum) {
+        ArrayList<ArrayList<Integer>> resultSet = new ArrayList<ArrayList<Integer>>();
+        findPathSum(root, sum, new ArrayList<Integer>(), resultSet);
+        return resultSet;
+    }
+
+    public void findPathSum (BinaryNode root, int sum, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> resultSet) {
+
+        if(root == null)
+            return;
+        else {
+
+            path.add(root.getiData());
+            //hit leaf node
+            if(root.getLeftNode() == null && root.getRightNode() == null) {
+                if(root.getiData() == sum) {
+                    ArrayList<Integer> currentPath = new ArrayList<Integer>(path);
+                    resultSet.add(currentPath);
+
+                }
+            }
+
+            findPathSum(root.getLeftNode(), sum - root.getiData(), path, resultSet);
+            findPathSum(root.getRightNode(), sum - root.getiData(), path, resultSet);
+
+            path.remove(path.size() - 1);
+        }
+
+    }
+
+
     public static void main(String[] args) {
 
         BinaryTreeProblems bp = new BinaryTreeProblems();
@@ -215,8 +367,16 @@ public class BinaryTreeProblems {
         //bp.insertANodeIntoBinaryTree(root);
 
         //problem #8
-        bp.printLevelTraverseInReversedOrder(root);
+        //bp.printLevelTraverseInReversedOrder(root);
 
+        //problem #11
+        //bp.findHeightOfBinaryTree(root);
+
+        //tree path problem #1
+        //System.out.print(bp.hasPathSum(root, 66));
+
+        //tree path problem #2
+        System.out.print(bp.allPathSum(root, 66));
     }
 
 }
