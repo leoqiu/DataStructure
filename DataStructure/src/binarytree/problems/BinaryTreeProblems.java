@@ -280,14 +280,36 @@ public class BinaryTreeProblems {
     /**
      * problem #18 calculate the diameter of a binary tree
      *
-     * @param args
+     * @param
      */
+     public int getDiameterOfTree (BinaryNode root) {
 
-    /**
-     * problem #20 Given a binary tree, print out all of its root-to-leaf paths
-     *
-     * @param args
-     */
+         //use a ArrayList's first item to record diameter's update
+         ArrayList<Integer> diameter = new ArrayList<Integer>();
+         diameter.add(0, Integer.MIN_VALUE);
+         subDiameterOfTree(root, diameter);
+         return diameter.get(0);
+     }
+
+
+     public int subDiameterOfTree (BinaryNode root, ArrayList<Integer> diameter) {
+
+         int leftSubDiameter, rightSubDiameter;
+
+         if(root == null)
+             return 0;
+         else {
+             leftSubDiameter = subDiameterOfTree(root.getLeftNode(), diameter);
+             rightSubDiameter = subDiameterOfTree(root.getRightNode(), diameter);
+
+             diameter.set(0, Math.max((leftSubDiameter + rightSubDiameter + 1), diameter.get(0)));
+
+             return Math.max(leftSubDiameter, rightSubDiameter) + 1;
+
+         }
+
+     }
+
 
 
     /**
@@ -355,12 +377,44 @@ public class BinaryTreeProblems {
     }
 
     /**
-     * #3 Given a binary tree, find the maximum sum of a path, the path may start and
+     * #3 Given a binary tree, find the maximum sum of a path, the path will contain the root
+     *
+     *
+     *
+     */
+    public void findMaxPathOfSumContainsRoot (BinaryNode root) {
+
+
+    }
+
+    /**
+     * #4 Given a binary tree, find the maximum sum of a path, the path may start and
      * end at any node
      *
      *
      *
      */
+    public int findMaxPathOfSumStartsFromAnyNode (BinaryNode root) {
+
+        ArrayList<Integer> curMax = new ArrayList<Integer>();
+        curMax.add(Integer.MIN_VALUE);
+        maxSubPath(root, curMax);
+        return curMax.get(0);
+
+    }
+
+    private int maxSubPath(BinaryNode root, ArrayList<Integer> curMax) {
+        if (root == null)
+            return 0;
+        else {
+            //find the max left path sum
+            int leftMax = Math.max(0, maxSubPath(root.getLeftNode(), curMax));
+            int rightMax = Math.max(0, maxSubPath(root.getRightNode(), curMax));
+            curMax.set(0, Math.max(curMax.get(0), (root.getiData() + leftMax + rightMax )));
+            return Math.max(root.getiData() + leftMax, root.getiData() + rightMax);
+
+        }
+    }
 
     /**
      * problem #20
@@ -401,6 +455,135 @@ public class BinaryTreeProblems {
 
     }
 
+    /**
+     * problem #24 Convert a tree to its mirror
+     *
+     * @param root
+     */
+    public void getMirrorOfBinaryTree (BinaryNode root) {
+
+        if (root == null)
+            return;
+        else {
+
+            getMirrorOfBinaryTree(root.getLeftNode());
+            getMirrorOfBinaryTree(root.getRightNode());
+
+            BinaryNode temp = root.getLeftNode();
+            root.setLeftNode(root.getRightNode());
+            root.setRightNode(temp);
+
+        }
+    }
+
+    /**
+     * problem #28 printing all ancestors of a node in a binary tree
+     *
+     * @param
+     */
+    public boolean printAllAncestorsOfANode (BinaryNode root, BinaryNode node) {
+
+        if (root == null)
+            return false;
+
+        if (root.equals(node))
+            return true;
+
+        if(printAllAncestorsOfANode(root.getLeftNode(), node) || printAllAncestorsOfANode(root.getRightNode(), node)) {
+
+            printNode(root);
+            return true;
+        }
+
+        return false;
+
+    }
+
+    /**
+     * problem #30 zigzag traverse a binary tree
+     *
+     * queue1 - level order traverse the tree
+     * queue2 - print odd level nodes
+     * stack - print even level nodes
+     *
+     * @param
+     */
+    public void zigzagTraversal (BinaryNode root) {
+
+        if (root == null)
+            return;
+        else {
+            int level = 0;
+
+            Queue<BinaryNode> queue1 = new LinkedList<BinaryNode>();
+            Queue<BinaryNode> queue2 = new LinkedList<BinaryNode>();
+            Stack<BinaryNode> stack = new Stack<BinaryNode>();
+
+            queue1.offer(root);
+            queue2.offer(root);
+            queue1.offer(null);
+
+
+            while (!queue1.isEmpty()) {
+
+                root = queue1.poll();
+                //meet line separator
+                if (root == null) {
+                   if(!queue1.isEmpty())
+                       queue1.offer(null);
+                    level ++;
+                    //zigzag print nodes
+                    if (level %2 == 0){
+                        //print stack
+                        while(!stack.isEmpty())
+                            printNode(stack.pop());
+                        System.out.println("------level------- " + level);
+                    } else {
+                        //print queue2
+                        while (!queue2.isEmpty())
+                            printNode(queue2.poll());
+                        System.out.println("------level------- " + level);
+
+                    }
+                } else {
+
+                    if(root.getLeftNode() != null){
+                        queue1.offer(root.getLeftNode());
+                        if (level %2 == 0)
+                            stack.push(root.getLeftNode());
+                        else
+                            queue2.offer(root.getLeftNode());
+                    }
+
+                    if(root.getRightNode() != null){
+                        queue1.offer(root.getRightNode());
+                        if (level %2 == 0)
+                            stack.push(root.getRightNode());
+                        else
+                            queue2.offer(root.getRightNode());
+                    }
+
+
+                }
+
+            }
+        }
+    }
+
+    /**
+     * problem #34 & 35 Given a binary tree with three pointers (left, right, nextSibling), algorithm to
+     * fill the nextSibling
+     *
+     * #1. queue1 : level order traversal
+     * #2. queue2 : traverse each level from head to tail and set nextSibling pointer for each node
+     *
+     * @param root
+     */
+    public void setNextSiblingPointers (BinaryNode root) {
+
+
+    }
+
 
     public static void main(String[] args) {
 
@@ -419,14 +602,31 @@ public class BinaryTreeProblems {
         //problem #11
         //bp.findHeightOfBinaryTree(root);
 
+        //problem #18
+        //System.out.print(bp.getDiameterOfTree(root));
+
         //tree path problem #1
         //System.out.print(bp.hasPathSum(root, 66));
 
         //tree path problem #2
         //System.out.print(bp.allPathSum(root, 66));
 
+        //tree path problem #4
+        //System.out.print(bp.findMaxPathOfSumStartsFromAnyNode(root));
+
         //problem #20
-        System.out.print(bp.getRootToLeafPathList(root));
+        //System.out.print(bp.getRootToLeafPathList(root));
+
+        //problem #24
+        //bp.getMirrorOfBinaryTree(root);
+        //BinaryTree.levelOrderPrintBinaryTree(root);
+
+        //problem #28
+        //BinaryNode node = new BinaryNode(26, 'T');
+        //bp.printAllAncestorsOfANode(root, node);
+
+        //problem #30
+        bp.zigzagTraversal(root);
     }
 
 }

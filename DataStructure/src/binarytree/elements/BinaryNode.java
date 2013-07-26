@@ -43,4 +43,24 @@ public class BinaryNode {
 	public void setcData(char cData) {
 		this.cData = cData;
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BinaryNode that = (BinaryNode) o;
+
+        if (cData != that.cData) return false;
+        if (iData != that.iData) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = iData;
+        result = 31 * result + (int) cData;
+        return result;
+    }
 }

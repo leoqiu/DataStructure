@@ -348,16 +348,16 @@ public class BasicOperations {
 		//#3. LDRTraversalR
 		//bo.LDRTraversalR(root);
 		//#4. LDRTraversal recursive
-		//bo.LDRTraversal(root);
+		bo.LDRTraversal(root);
 		//#5. LRDTraversal recursive
-		//bo.LRDTraversalR(root);
+	    //bo.LRDTraversalR(root);
 		//bo.LRDTraversalOneStack(root);
 	
 		//bo.DRLTraversal(root);
 		//bo.LRDTraversalTwoStack(root);
 
         //level order traverse a binary tree
-        bo.levelOrderTraversal(root);
+        //bo.levelOrderTraversal(root);
 
         //mac 1st
 	}
