@@ -581,6 +581,35 @@ public class BinaryTreeProblems {
      */
     public void setNextSiblingPointers (BinaryNode root) {
 
+        if (root == null)
+            return;
+        else {
+
+            Queue<BinaryNode> queue = new LinkedList<BinaryNode>();
+            queue.offer(root);
+            queue.offer(null);
+
+            while(!queue.isEmpty()) {
+
+                BinaryNode node = queue.poll();
+                //meet level separator
+                if(node == null){
+
+                    if(!queue.isEmpty())
+                        queue.offer(node);
+                } else {
+                   //set nextSibling
+                    //node.setNextSibling(queue.getFront);
+                    if(node.getLeftNode() != null)
+                        queue.offer(node.getLeftNode());
+                    if(node.getRightNode() != null)
+                        queue.offer(node.getRightNode());
+
+                }
+
+            }
+
+        }
 
     }
 

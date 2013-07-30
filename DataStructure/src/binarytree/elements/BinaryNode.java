@@ -6,6 +6,8 @@ public class BinaryNode {
 	private BinaryNode rightNode;
 	private int iData;
 	private char cData;
+
+
 	
 	public BinaryNode (int iData, char cData) {
 		this.iData = iData;
