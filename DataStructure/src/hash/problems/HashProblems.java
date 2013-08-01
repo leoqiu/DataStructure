@@ -372,11 +372,99 @@ public class HashProblems {
     }
 
     /**
-     * problem #15
+     * problem #16 Find the first repeating number
      *
      *
-     * @param args
+     * @param
      */
+    public void firstRepeatNumber () {
+        int[] array = new int[]{10, 2, 4, 6, 1, 22, 2, 5, 6, 8, 10};
+        HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
+
+        for (int i = 0; i < array.length; i++) {
+
+            if (hash.containsKey(array[i])) {
+                hash.put(array[i], ( hash.get(array[i]) + 1 )) ;
+            } else {
+                hash.put(array[i], 1);
+            }
+
+            if (hash.get(array[i]) == 2) {
+                System.out.print(array[i]);
+                break;
+            }
+
+        }
+
+    }
+
+    /**
+     * problem #17 - Given an array of n numbers. give a algorithm which displays all pairs whose sum is S
+     *
+     *
+     * @param
+     */
+    public void displayPairSumIsS (int sum) {
+        int[] array = new int[]{10, 2, 4, 6, 1, 22, 2, 5, 6, 8, 10, 0};
+        HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
+
+        for (int i = 0; i < array.length; i++) {
+            hash.put(array[i], 1);
+        }
+
+//        for (int i = 0; i < array.length; i++) {
+//            int sub = sum - array[i];
+//            if(hash.containsKey(sub))
+//                System.out.println("[" + sub + " " + array[i] + "]");
+//        }
+
+        Iterator it = hash.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Integer, Integer> entry = (Map.Entry)it.next();
+            int sub = sum - entry.getKey();
+
+            if (hash.containsKey(sub) && hash.get(sub) == 1) {
+
+                hash.put(sub, (hash.get(sub)+1));
+                hash.put(entry.getKey(), (hash.get(entry.getKey())+1));
+                System.out.println("[" + sub + " " + entry.getKey() + "]");
+            }
+
+
+        }
+
+        System.out.println(";;; " + hash.get(5));
+
+    }
+
+    /**
+     * problem #18
+     *
+     * @param sum
+     */
+    public void displayPairSumIsS2 (int sum) {
+        int[] array = new int[]{10, 2, 4, 4, 6, 1, 22, 2, 5, 6, 5, 8, 10, 0};
+        Arrays.sort(array);
+
+        int i = 0;
+        int j = array.length - 1;
+        while (i <= j) {
+
+            if(array[i] + array[j] == sum) {
+                System.out.println(array[i] + " " + array[j] );
+                i++;
+                j--;
+            }
+
+            if(array[i] + array[j] < sum)
+                i++;
+            if(array[i] + array[j] > sum)
+                j--;
+        }
+
+    }
+
+
 
 
     public static void main (String args[]) {
@@ -402,7 +490,12 @@ public class HashProblems {
 
         //hp.addUpToK();
 
-        hp.findFirstNonRepeatedChar();
+        //hp.findFirstNonRepeatedChar();
+
+        //hp.firstRepeatNumber ();
+
+        hp.displayPairSumIsS(10);
+       // hp.displayPairSumIsS2(10);
     }
 }
 
