@@ -1,0 +1,128 @@
+package sort;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: shqiu
+ * Date: 8/2/13
+ * Time: 11:05 AM
+ * To change this template use File | Settings | File Templates.
+ */
+public class BasicOperations {
+
+    private void printArray (int[] array) {
+
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
+    }
+
+
+    /**
+     * Bubble sort
+     *
+     * #1. every inner loop, will swap till the biggest number to the end
+     *
+     * @param array
+     */
+    public void bubbleSort (int[] array) {
+
+        int length = array.length;
+
+        for (int pass = length - 1; pass > 0; pass--) {
+            for (int i = 0; i < pass ; i++) {
+                if (array[i] > array[i+1]){
+
+                    int temp = array[i];
+                    array[i] = array[i+1];
+                    array[i+1] = temp;
+                }
+            }
+            printArray(array);
+        }
+    }
+
+    /**
+     * Optimzied bubble sort
+     *
+     * @param array
+     */
+    public void bubbleSortOptimized (int[] array) {
+
+        boolean swapped = true;
+        int j = 0;
+
+        while (swapped) {
+
+            //if the list already sorted, swapped will be false then end the while loop
+            swapped = false;
+            j++;
+
+            //this inner loop for swapping
+            for (int i = 0; i < array.length - j; i++) {
+
+                if(array[i] > array[i+1]){
+                    int temp = array[i];
+                    array[i] = array[i+1];
+                    array[i+1] = temp;
+                    swapped = true;
+                }
+
+            }
+
+        }
+    }
+
+    /**
+     *
+     * Selection sort
+     *
+     * @param array
+     */
+    public void selectionSort (int[] array) {
+
+        int min;
+
+        for (int i = 0; i < array.length; i++) {
+
+            min = i;
+            for (int j = i + 1; j < array.length; j++) {
+
+                //System.out.println(i + "  --  " + min);
+                if(array[j] < array[min])
+                    min = j;
+
+            }
+
+            int temp = array[i];
+            array[i] = array[min];
+            array[min] = temp;
+
+        }
+
+        printArray(array);
+    }
+
+
+    /**
+     * Insertion sort
+     *
+     * @param array
+     */
+    public void insertionSort (int[] array) {
+
+
+    }
+
+
+    public static void main (String[] args) {
+
+        int[] array = {2, 3, 21, 1, 5, 8, 22, 19, 7, 27, 84, 19, 33, 66, 88};
+
+        BasicOperations bo = new BasicOperations();
+        //bo.bubbleSort(array);
+        bo.selectionSort(array);
+
+    }
+
+}

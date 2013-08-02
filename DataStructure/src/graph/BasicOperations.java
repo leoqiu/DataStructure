@@ -23,6 +23,8 @@ package graph;
 import graph.adt.Graph;
 import graph.adt.Vertex;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -73,7 +75,59 @@ public class BasicOperations {
     }
 
 
-    public void dfsR () {}
+    public void dfsR (Graph graph, int start) {
+
+
+        int v = graph.getAdjUnvisitedVertex(start);
+
+        if (v == -1) {
+            start--;
+            return;
+        }  else {
+            graph.displayVertex(start);
+            graph.vertexList[start].visited = true;
+            start = v;
+            dfsR(graph, start);
+        }
+
+//        for (int i = 0; i < graph.vertexCount; i++) {
+//            graph.vertexList[i].visited = false;
+//        }
+
+    }
+
+    /**
+     *
+     * BFS
+     *
+     * @param
+     */
+    public void bfs (Graph graph) {
+
+        Queue<Integer> queue = new LinkedList<Integer>();
+
+        graph.vertexList[0].visited = true;
+        graph.displayVertex(0);
+        queue.offer(0);
+        int v2;
+
+        while (!queue.isEmpty()) {
+
+            int v1 = queue.poll();
+            while ( (v2=graph.getAdjUnvisitedVertex(v1)) != -1 ) {
+                graph.vertexList[v2].visited = true;
+                graph.displayVertex(v2);
+                queue.offer(v2);
+            }
+
+
+        }
+
+        for (int i = 0; i < graph.vertexCount; i++) {
+            graph.vertexList[i].visited = false;
+        }
+
+    }
 
 
 
@@ -102,7 +156,9 @@ public class BasicOperations {
         graph.addEge(7 , 4);
 
         BasicOperations bo = new BasicOperations();
-        bo.dfs(graph);
+        //bo.dfs(graph);
+        //bo.dfsR(graph, 0);
+        bo.bfs(graph);
     }
 }
 
