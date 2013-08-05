@@ -111,18 +111,146 @@ public class BasicOperations {
      */
     public void insertionSort (int[] array) {
 
+        int current;
+
+        for (int i = 1; i < array.length; i++) {
+
+            current = array[i];
+            int j = i;
+
+            //every while loop will sort sub-list
+            //then insert current into the correct position
+            //in the sub-list
+            while (j > 0 && array[j-1] > current) {
+                array[j] = array[j-1];
+                j--;
+            }
+            array[j] = current;
+
+        }
+        printArray(array);
+    }
+
+    /**
+     * Merge sort reference - http://www.vogella.com/articles/JavaAlgorithmsMergesort/article.html
+     *
+     * #1. MergeSort is so called divided and conquer algorithm
+     * #2. To split a collection into 2 parts
+     * #3. The resulting collections are again recursively sorted via MergeSort algorithm
+     * #4. Once the sorting process of the two collections is finished, the results of the two collections is combined
+     *
+     *
+     * @param array
+     */
+    public void mergeSort (int[] array) {
+
+
+
+    }
+
+
+    /**
+     * QuickSort reference - http://www.vogella.com/articles/JavaAlgorithmsQuicksort/article.html
+     *
+     *
+     * #1. If the array contains only one element or zero elements then the array is sorted.
+     * #2. If the array contains more then one element then:
+     *      #1. Select an element from the array. This element is called the "pivot element". For example select the element in the middle of the array.
+     *      #2. All elements which are smaller then the pivot element are placed in one array and all elements which are larger are placed in another array.
+     *      #3. Sort both arrays by recursively applying QuickSort to them.
+     *      #4. Combine the arrays
+     *
+     * QuickSort can be implemented to sort "in-place". This means that the sorting takes place in the array and that no additional array need to be created.
+     *
+     * @param array
+     */
+    public void quickSort (int[] array) {
+
 
     }
 
 
     public static void main (String[] args) {
 
-        int[] array = {2, 3, 21, 1, 5, 8, 22, 19, 7, 27, 84, 19, 33, 66, 88};
+        int[] array = {2, 3, 21, 1, 5, 5, 8, 22, 19, 7, 27, 84, 19, 5, 33, 66, 5, 88};
 
         BasicOperations bo = new BasicOperations();
         //bo.bubbleSort(array);
-        bo.selectionSort(array);
+        //bo.selectionSort(array);
+
+        bo.insertionSort(array);
 
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
