@@ -164,10 +164,55 @@ public class BasicOperations {
      *
      * @param array
      */
-    public void quickSort (int[] array) {
+    public void quickSort (int[] array, int low, int high) {
 
+        int pivotIndex;
+
+        if (high > low) {
+            pivotIndex = partition(array, low, high);
+            quickSort(array, low, pivotIndex-1);
+            quickSort(array, pivotIndex+1, high);
+        }
 
     }
+
+    private int partition(int[] array, int low, int high) {
+
+        int left = low;
+        int right = high;
+        //choose the left most at the pivot
+        int pivot = array[low];
+
+        while (left < right) {
+
+            while (array[left] < pivot) {
+                left++;
+            }
+
+            while (array[right] > pivot) {
+                right--;
+            }
+
+            while (left < right) {
+                int temp = array[left];
+                array[left] = array[right];
+                array[right] = temp;
+
+                //left++;
+               // right--;
+            }
+
+        }
+
+        //finally right is the pivot new position
+        array[low] = array[right];
+        array[right] = pivot;
+        //return pivot new index
+        return right;
+    }
+
+
+
 
 
     public static void main (String[] args) {
@@ -178,8 +223,9 @@ public class BasicOperations {
         //bo.bubbleSort(array);
         //bo.selectionSort(array);
 
-        bo.insertionSort(array);
-
+        //bo.insertionSort(array);
+        bo.quickSort(array, 0, 17 );
+        bo.printArray(array);
     }
 
 }
