@@ -5,6 +5,27 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+
+/**
+ *
+ * Median : To find the Median, place the numbers you are given in value order and find the middle number.
+ *
+ *
+ Example: find the Median of {12, 3 and 5}
+
+ Put them in order:
+
+ 3, 5, 12
+
+ The middle number is 5, so the median is 5.
+
+ *
+ *
+ */
+
+
+
+
 /**
  * Created with IntelliJ IDEA.
  * User: shqiu
@@ -434,6 +455,126 @@ public class SearchProblems {
     }
 
 
+    /**
+     *
+     *  problem #40 - Given a sorted array of n integers that has been rotated an unknown number of times, give lgn algorithm
+     *  that finds an element in the array example : Find 5 in array {15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14} => 8 (the index of 5)
+     *
+     *
+     * @param
+     */
+    public int findPivot (int[] array, int start, int end) {
+
+        if(start == end)
+            return start;
+        else if (start == end -1) {
+            if(array[start] >= array[end])
+                return start;
+            else
+                return end;
+        } else {
+            int mid = start + (end - start) /2;
+            if(array[start] >= array[mid])
+                return  findPivot(array, start, mid);
+            else
+                return findPivot(array, mid, end);
+
+        }
+
+    }
+
+    public int searchElementLgN (int[] array, int n, int target) {
+
+        int pivot = findPivot(array, 0, n-1);
+        if(array[pivot] == target)
+            return pivot;
+
+        if(array[pivot] <= target)
+            return binarySearch(array, 0, pivot-1, target);
+        else
+            return binarySearch(array, pivot+1, n-1, target);
+
+    }
+
+    private int binarySearch (int[] array, int start, int end, int target) {
+
+        if(end >= start) {
+
+            int mid = start + (end - start) / 2 ;
+            if(array[mid] == target)
+                return mid;
+            if(array[mid] < target)
+                binarySearch(array, mid+1, end, target);
+            else
+                binarySearch(array, start, mid-1, target);
+
+        }
+
+        //target not found
+        return -1;
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     *
+     * problem #52 - find second smallest number efficiently
+     *
+     * #1.
+     *
+     *
+     * @param args
+     */
+
+
+
+    /**
+     * problem #59 - Given an array of 2n elements of which n elements are same and the remaining n elements are all different. Find the majority element
+     *
+     * {3, 4, 5, 1, 2, 6, 32, 21, 6, 6, 6, 6, 45, 6, 6, 6, 6, 6, 67, 99} => 6
+     *
+     * #1. hash
+     * #2. scan once find the one appear twice
+     */
+
+    /**
+     *
+     * Problem #60 - Given an array with 2n+1 integer elements, n elements appear twice in arbitrary places in the array and
+     * a single integer appears only once somewhere inside. Find the lonely integer with O(n) operations and O(1) extra memory
+     *
+     * a XOR a = 0
+     * a XOR a XOR a = a
+     * 0 XOR a = a
+     *
+     * @param
+     */
+
+    /**
+     *
+     * problem #62 - Local minimum of an array, search an index i such that A[i-1] < A[i] < A[i+1]
+     *
+     *  {3, 4, 5, 1, 2, 6, 32, 21, 6, 6, 6, 6, 45, 6, 7, 8, 6, 6, 67, 99}
+     *
+     * @param
+     */
+    public void findLocalMin (int[] array, int start, int end) {
+
+        int middle = start + (start + end) / 2;
+
+
+        if(array[middle] > array[middle - 1] && array[middle] < array[middle+1])
+              System.out.println(middle);
+        else {
+            findLocalMin(array, start, middle);
+            findLocalMin(array, middle, end);
+        }
+
+    }
+
+
+
+
 
 
     public static void main (String[] args) {
@@ -448,10 +589,14 @@ public class SearchProblems {
         //sp.findElementOccurTwice();
         //sp.findSumClosestToZero();
         //sp.findThreeElementsSumK();
-        sp.findThreeElementsSumClosestToZero();
+       // sp.findThreeElementsSumClosestToZero();
 
-
-
+        int[] array2 = {15, 16, 19, 20, 25, 1, 2, 3, 4, 5, 7, 10, 14};
+        int[] array3 = {1, 2, 3, 4, 5, 7, 10, 14, 9, 33, 25, 20, 19, 19, 15};
+        //System.out.print(sp.findPivot(array3, 0, 14));
+        //System.out.print(sp.searchElementLgN(array2, 12, 5));
+        int[] array4 = {3, 4, 5, 1, 2, 6, 32, 21, 6, 6, 6, 6, 45, 6, 7, 8, 6, 6, 67, 99};
+        sp.findLocalMin(array4, 0 , 20);
     }
 }
 
