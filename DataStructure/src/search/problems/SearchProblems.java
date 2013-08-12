@@ -573,6 +573,227 @@ public class SearchProblems {
     }
 
 
+    /**
+     *
+     *  problem #63 - n x n array, each row is ascending order each column is ascending order
+     *  devise an O(N) algorithm to determine if a given element x in the array, elements are
+     *  all distinct
+     *
+     *  1,  2,  3,  4,  5
+     *
+     *  6,  7,  8,  9,  10
+     *
+     *  11, 12, 13, 14 ,15
+     *
+     *  16, 17, 18, 19, 20
+     *
+     *  21, 22, 23, 24, 25
+     *
+     *
+     *
+     * start from array[n-1][0]
+     *
+     * if k < array[n-1][0]
+     *   then eliminate row n-1
+     * if k > array[n-1][0]
+     *   then eliminate colum 0
+     *
+     *
+     * @param
+     */
+    public void findTargetInOrderedNNArray (int target) {
+
+        int[][] array = {{1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}, {11, 12, 13, 14, 15} , {16, 17, 18, 19, 20}, {21, 22, 23, 24, 25}};
+
+        int n = array.length;
+        int i = n-1;
+        int j = 0;
+
+        while (i >=0 && j <= n-1) {
+
+            if(target < array[i][j])
+                i--;
+
+            if(target > array[i][j])
+                j++;
+
+            if(target == array[i][j]) {
+                System.out.print("array[" + i + "][" + j + "] = "+ array[i][j]);
+                break;
+            }
+
+        }
+    }
+
+
+    /**
+     *
+     * problem #65
+     *
+     * 1 1 0 0 0
+     * 1 0 0 0 0
+     * 1 1 1 1 0
+     * 1 1 0 0 0
+     * 1 0 0 0 0
+     *
+     *
+     * @param
+     */
+
+
+    /**
+     *
+     * problem #68 - {1, 0, 0, 1, 1, 1, 0, 0, 0}    => {0, 0, 0, 0, 0, 1, 1, 1, 1}
+     *
+     *
+     *
+     * @param
+     */
+    public void rearrangeZerosAndOnes () {
+
+        int[] array = {1, 0, 0, 1, 1, 1, 0, 0, 0};
+
+        printArray(array);
+
+        int n = array.length;
+        int i = 0;
+        int j = n - 1;
+
+        while (i < j) {
+
+            while(array[i] == 0 && i < j)
+                i++;
+
+            while(array[j] == 1 && i < j)
+                j--;
+
+            if(array[i] == 1 && array[j] == 0 ) {
+
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                i++;
+                j--;
+            }
+
+        }
+
+        printArray(array);
+    }
+
+
+    /**
+     *
+     * problem #67 - {0,1,1,0,1,2,1,2,0,0,0,1} => {0,0,0,0,0,1,1,1,1,1,2,2}
+     *
+     *
+     * @param
+     */
+    public void rearrangeZerosOnesAndTwos () {
+
+
+        int[] array = {0,1,1,0,1,2,1,2,0,0,0,1};
+        int n = array.length;
+        int i = 0;
+        int j = n - 1;
+        int indexOfFirst2 = -1;
+
+        while (i < j) {
+
+            while ((array[i] == 0 || array[i] == 1) && i < j) {
+                i++;
+
+            }
+
+            while (array[j] == 2 && i < j) {
+                j--;
+            }
+
+            if(array[i] == 2 && (array[j] == 0 || array[j] == 1)) {
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                indexOfFirst2 = j;
+                i++;
+                j--;
+            }
+
+        }
+
+        printArray(array);
+
+        i = 0;
+        j = indexOfFirst2 - 1;
+
+        while (i < j) {
+
+            while (array[i] == 0 && i < j)
+                i++;
+
+
+            while (array[j] == 1 && i < j)
+                j--;
+
+            if (array[i] == 1 && array[j] == 0) {
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                i++;
+                j--;
+            }
+
+        }
+
+        printArray(array);
+
+    }
+
+    /**
+     *
+     * problem #71 {a1, a2, a3, a4, a5, a6, a7, b1, b2, b3, b4, b5, b6, b7} => {a1, b1, a2, b2, a3, b3, a4, b4, a5, b5, a6, b6, a7, b7}
+     *
+     *
+     * @param
+     */
+    public void shuffleCharArray () {
+
+        String[] array = {"a1", "a2", "a3", "a4", "a5", "a6", "a7", "b1", "b2", "b3", "b4", "b5", "b6", "b7"};
+
+        for(int u = 0; u < array.length; u++)
+            System.out.print(array[u] + " ");
+        System.out.println();
+
+        int n = array.length / 2;
+
+        int end1 = n -1;
+        int start2 = n;
+
+        for (int i = 1, j = 2*n-2; i <= end1 && j >= start2; i++, j--) {
+
+            int p = i;
+            int q = n;
+
+            while (p <= end1 && q <= j) {
+                String temp = array[p];
+                array[p] = array[q];
+                array[q]  = temp;
+                p++;
+                q++;
+            }
+
+//            for(int u = 0; u < array.length; u++)
+//                System.out.print(array[u] + " ");
+//            System.out.println();
+
+        }
+
+        for(int u = 0; u < array.length; u++)
+            System.out.print(array[u] + " ");
+        System.out.println();
+
+    }
+
+
 
 
 
@@ -596,7 +817,12 @@ public class SearchProblems {
         //System.out.print(sp.findPivot(array3, 0, 14));
         //System.out.print(sp.searchElementLgN(array2, 12, 5));
         int[] array4 = {3, 4, 5, 1, 2, 6, 32, 21, 6, 6, 6, 6, 45, 6, 7, 8, 6, 6, 67, 99};
-        sp.findLocalMin(array4, 0 , 20);
+        //sp.findLocalMin(array4, 0 , 20);
+        //sp.findTargetInOrderedNNArray(13);
+       // sp.rearrangeZerosAndOnes();
+        //sp.rearrangeZerosOnesAndTwos();
+        sp.shuffleCharArray();
+
     }
 }
 
