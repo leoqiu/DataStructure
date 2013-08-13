@@ -212,6 +212,36 @@ public class BasicOperations {
     }
 
 
+    /**
+     *
+     *
+     Imagine you have the numbers 1 - 9
+
+     9  7  2  6  3  4  8  5  1
+
+     And let's suppose that only 3 fit in memory at a time.
+
+     So you'd break them into chunks of 3 and sort each, storing each result in a separate file:
+
+     279
+     346
+     158
+
+     Now you'd open each of the three files as streams and read the first value from each:
+
+     2 3 1
+
+     Output the lowest value 1, and get the next value from that stream, now you have:
+
+     2 3 5
+
+     Output the next lowest value 2, and continue onwards until you've outputted the entire sorted list.
+
+     *
+     *
+     *
+     * @param
+     */
 
 
 
