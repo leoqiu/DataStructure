@@ -1,5 +1,9 @@
 package string.problems;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: shqiu
@@ -301,6 +305,72 @@ public class Problems {
 
     }
 
+
+    ///////////////////////////////////////////
+
+
+    private int getWinSize (HashMap<Character, Integer> hash) {
+
+        Iterator it = hash.entrySet().iterator();
+        int winSize = 0;
+
+        while (it.hasNext()) {
+
+            Map.Entry<Character, Integer> entry = (Map.Entry)it.next();
+            int value = entry.getValue();
+            winSize += value;
+        }
+
+        return winSize;
+
+    }
+
+    private boolean isAWin (HashMap<Character, Integer> hash) {
+
+        boolean isAWin = false;
+
+//        Iterator it = hash.keySet().iterator();
+//
+//        while (it.hasNext()) {
+//
+//            Map.Entry<Character, Integer> entry = (Map.Entry) it.next();
+//
+//
+//        }
+
+        int countA = -1;
+        int countB = -1;
+
+        if (hash.get('B') != null)
+            countB = hash.get('B');
+
+        if (hash.get('A') != null)
+            countA = hash.get('A');
+
+        if (countA >=2 && countB >= 1)
+            isAWin = true;
+
+        return isAWin;
+    }
+
+    private void removeElementFromHash (HashMap<Character, Integer> hash, char c) {
+
+        if (hash.get(c) == 1) {
+            hash.remove(c);
+        } else {
+            hash.put(c, (hash.get(c) - 1) );
+        }
+
+    }
+
+    private void addElementToHash (HashMap<Character, Integer> hash, char c) {
+
+        if (hash.get(c) == null)
+            hash.put(c, 1);
+        else
+            hash.put(c, (hash.get(c) + 1) );
+    }
+
     public void findMinSlidingWin () {
 
         //2 A, 1 B
@@ -308,57 +378,72 @@ public class Problems {
         int winANum = 2;
         int winBNum = 1;
 
-        char[] array = {'A', 'B' , 'B', 'A', 'C', 'B', 'A', 'A'};
-
-        int start = 0;
-        int current = 0;
-
-        int countA = 0;
-        int countB = 0;
-
-        //things to be recorded
-        int minSize = Integer.MIN_VALUE;
         int minWinStart = -1;
         int minWinEnd = -1;
+        int minWinSize = Integer.MAX_VALUE;
+
+        char[] array = {'A', 'B' , 'B', 'A', 'C', 'B', 'A', 'A'};
+
+        int currentStart = 0;
+        int currentEnd = 0;
+
+        int winCount = 0;
+
+        HashMap<Character, Integer> hash = new HashMap<Character, Integer>();
+
+        while (currentEnd < array.length) {
+
+            //add a element into hash
+            addElementToHash(hash, array[currentEnd]);
+
+            //find a window
+            if(isAWin(hash)) {
+
+                winCount++;
+
+                int currentWinSize = getWinSize(hash);
+                if (currentWinSize < minWinSize) {
+                    minWinSize = currentWinSize;
+                    minWinStart = currentStart;
+                    minWinEnd = currentEnd;
+
+                }
+
+                //odd number window found, move currentStart forward one step
+                if (winCount % 2 == 1) {
+                    removeElementFromHash(hash, array[currentStart]);
+                    currentStart++;
+                } else {           //even number window found, move currentStart forward till POSSIBLE min size window found
+
+                    while (isAWin(hash)) {
+                        removeElementFromHash(hash, array[currentStart]);
+                        currentStart++;
+                        winCount++;
+
+                    }
+
+                    currentStart--;
+                    addElementToHash(hash, array[currentStart]);
+
+                    currentWinSize = getWinSize(hash);
+                    if (currentWinSize < minWinSize) {
+                        minWinSize = currentWinSize;
+                        minWinStart = currentStart;
+                        minWinEnd = currentEnd;
+
+                    }
+                }
 
 
 
+            }
 
-//        for (int i = 0; i < array.length; i++) {
-//
-//            if(array[i] == 'A')
-//                countA++;
-//
-//            if(array[i] == 'B')
-//                countB++;
-//
-//        }
 
-        while (current < array.length) {
-
-//
-//            if(array[current] == 'A')
-//                countA++;
-//
-//            if(array[current] == 'B')
-//                countB++;
-//
-//            //find window
-//            if(countA == winANum && countB == winBNum) {
-//
-//
-//                int currentSize = current - start + 1;
-//
-//                if (currentSize < minSize){
-//                    minWinStart = start;
-//                    minWinEnd = current;
-//                    minSize = currentSize;
-//                }
-//
-//            }
-//
-//            current++;
+            currentEnd++;
         }
+
+
+        System.out.print("Minimum window from [" + minWinStart + "] to [" + minWinEnd + "] and minimum window size is " + minWinSize);
 
     }
 
@@ -386,7 +471,8 @@ public class Problems {
         //p.combinationsString( "" , "abc");
         //p.removeAdjacentDups();
         //p.removeAdjacentDups();
-        p.findMinSlidingWinBF();
+        //p.findMinSlidingWinBF();
+        p.findMinSlidingWin();
     }
 
 
