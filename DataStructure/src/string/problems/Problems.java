@@ -306,7 +306,7 @@ public class Problems {
     }
 
 
-    ///////////////////////////////////////////
+    /////////////      find min window size by sliding window in O(n) time       //////////////////////////////
 
 
     private int getWinSize (HashMap<Character, Integer> hash) {
@@ -446,14 +446,6 @@ public class Problems {
         System.out.print("Minimum window from [" + minWinStart + "] to [" + minWinEnd + "] and minimum window size is " + minWinSize);
 
     }
-
-
-
-
-
-
-
-
 
 
 
