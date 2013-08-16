@@ -74,6 +74,82 @@ public class problems {
     }
 
 
+    /**
+     *
+     * problem #4 - Maximum value contiguous subsequence: {-2, 11, -4, 13, -5, 2} => 20
+     *                                                    {1, -3, 4, -2, -1, 6}  => 7
+     *
+     *
+     * @running time O(n^2)
+     */
+    public void findMaxContiguousSum () {
+
+        int[] array = {-2, 11, -4, 13, -5, 2};
+        int maxSum = Integer.MIN_VALUE;
+        int maxSumStartIndex = -1;
+        int maxSumEndIndex = -1;
+
+        for (int i = 0; i < array.length; i++) {
+
+            int currentSum = 0;
+
+            for (int j = i; j < array.length; j++) {
+
+                currentSum += array[j];
+                if(currentSum > maxSum) {
+                    maxSum = currentSum;
+                    maxSumStartIndex = i;
+                    maxSumEndIndex = j;
+                }
+
+            }
+        }
+
+        System.out.print("Max subsequence of sum is from [" + maxSumStartIndex + "] to [" + maxSumEndIndex + "] = " + maxSum);
+
+    }
+
+    /**
+     *
+     * accumulate only the sum is positive, otherwise set sumStartHere to 0
+     *
+     */
+    public void findMaxContiguousSum2 () {
+
+        int[] array = {-2, 11, -4, 13, -5, 2};
+
+        int maxSum = Integer.MIN_VALUE;
+        int sumStartHere = 0;
+
+        int startIndex = -1;
+        int endIndex = -1;
+
+        for (int i = 0; i < array.length; i++){
+
+            sumStartHere = sumStartHere + array[i];
+            if(sumStartHere < 0){
+                startIndex = i;
+                sumStartHere = 0;
+                continue;
+            }
+
+            if(maxSum < sumStartHere) {
+
+                endIndex = i;
+                maxSum = sumStartHere;
+            }
+
+        }
+
+        System.out.print("Max subsequence of sum is from [" + startIndex + "] to [" + endIndex + "] = " + maxSum);
+
+    }
+
+
+
+
+
+
 
 
 
@@ -82,10 +158,11 @@ public class problems {
     public static void main (String[] args) {
 
         problems p = new problems();
-        System.out.println(p.tDP(6));
-        System.out.println(p.tR(6));
+        //System.out.println(p.tDP(6));
+        //System.out.println(p.tR(6));
+        //p.findMaxContiguousSum();
+        p.findMaxContiguousSum2();
 
-        //p.tR(3);
 
     }
 
