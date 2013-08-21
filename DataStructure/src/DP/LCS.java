@@ -11,8 +11,16 @@ package DP;
 
 public class LCS {
     public static void main(String[] args) {
-        char[] string = "abcbbc".toCharArray();
-        char[] string2 = "abccbb".toCharArray();
+
+        String strX = "ABCBDAB";
+        //String strX = "ACGTCGTT";
+        char[] X = strX.toCharArray();
+        String strY = "BDCABA";
+        //String strY = "CCACAGGTTA";
+        char[] Y = strY.toCharArray();
+
+        char[] string = strX.toCharArray();
+        char[] string2 = strY.toCharArray();
 
         findLCS(string, string2);
     }
@@ -56,7 +64,7 @@ public class LCS {
 
         if(b[i][j]=='\\') {
             printLCS(b, string, i-1, j-1);
-            System.out.println(string[i-1]);
+            System.out.print(string[i-1] + " ");
         } else if(b[i][j]=='|'){
             printLCS(b, string, i-1, j);
         } else {
