@@ -1,9 +1,6 @@
 package COMPANY.amazon;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -239,6 +236,104 @@ public class ProblemSetOne {
     }
 
 
+    /**
+     *
+     * "dsg((((asfda)))((()(((asfdsda)0s9df909((())"
+     *
+     * parenthesis matches or not
+     *
+     *
+     * @param
+     */
+    public void parenthesisMatch () {
+
+        String str = "(((asfda)))((()(((asfdsda)0s9df909((())";
+        char[] charA = str.toCharArray();
+
+        int cur = 0;
+        int curFront = 0;
+        int curBack = 0;
+
+        int frontCount = 0;
+        int backCount = 0;
+
+        int n = charA.length;
+
+
+        while (cur < n && curFront < n && curBack < n) {
+
+            if (charA[cur] == '(') {
+
+                curFront = cur;
+
+                while (curFront < n && charA[curFront] == '(') {
+
+                    frontCount++;
+                }
+
+            }
+
+
+
+
+            cur++;
+        }
+    }
+
+    /**
+     *  parenthesisMatch easy version
+     *
+     *
+     */
+    public void parenthesisMatch2 () {
+
+        String str = "(((asfda)))((()(((asfdsda)0s9df909((())";
+        char[] charA = str.toCharArray();
+
+        Stack<Character> stack = new Stack<Character>();
+        boolean isMatch = false;
+
+
+        for (int i = 0; i < charA.length; i++) {
+
+            char cur = charA[i];
+
+            if (cur == '(')
+                stack.push(cur);
+            else if (cur == ')') {
+
+                if(stack.isEmpty())
+                    isMatch = false;
+                else
+                    stack.pop();
+
+            }
+
+        }
+
+        if(stack.isEmpty())
+            isMatch = true;
+        else
+            isMatch = false;
+
+    }
+
+
+    /**
+     *  parenthesisMatch hard version
+     *
+     *  "{}{}[[]]()[(){}[](((}}{)({}}}}"
+     *
+     */
+
+
+
+
+
+
+
+
+
 
 
 
@@ -254,3 +349,66 @@ public class ProblemSetOne {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
