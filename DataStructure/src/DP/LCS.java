@@ -57,6 +57,15 @@ public class LCS {
         System.out.println("LCS序列:");
         printLCS(b,string,m,n);
     }
+
+    /**
+     * Start from the right-down corner, print one of the longest subsequence if there are more than one
+     *
+     * @param b
+     * @param string
+     * @param i
+     * @param j
+     */
     private static void printLCS(int[][] b, char[] string, int i, int j) {
         if(i==0 || j==0) {
             return ;
