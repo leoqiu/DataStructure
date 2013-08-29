@@ -280,6 +280,8 @@ public class BinaryTreeProblems {
     /**
      * problem #18 calculate the diameter of a binary tree
      *
+     * http://stackoverflow.com/questions/11897088/diameter-of-binary-tree-better-design
+     *
      * @param
      */
     //this is wrong

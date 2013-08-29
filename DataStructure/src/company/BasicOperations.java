@@ -1,4 +1,4 @@
-package COMPANY;
+package company;
 
 /**
  * Created with IntelliJ IDEA.
