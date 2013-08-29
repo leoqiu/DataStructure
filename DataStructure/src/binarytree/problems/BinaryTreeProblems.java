@@ -282,33 +282,66 @@ public class BinaryTreeProblems {
      *
      * @param
      */
-     public int getDiameterOfTree (BinaryNode root) {
+    //this is wrong
+//     public int getDiameterOfTree (BinaryNode root) {
+//
+//         //use a ArrayList's first item to record diameter's update
+//         ArrayList<Integer> diameter = new ArrayList<Integer>();
+//         diameter.add(0, Integer.MIN_VALUE);
+//         subDiameterOfTree(root, diameter);
+//         return diameter.get(0);
+//     }
+//
+//
+//     public int subDiameterOfTree (BinaryNode root, ArrayList<Integer> diameter) {
+//
+//         int leftSubDiameter, rightSubDiameter;
+//
+//         if(root == null)
+//             return 0;
+//         else {
+//             leftSubDiameter = subDiameterOfTree(root.getLeftNode(), diameter);
+//             rightSubDiameter = subDiameterOfTree(root.getRightNode(), diameter);
+//
+//             diameter.set(0, Math.max((leftSubDiameter + rightSubDiameter + 1), diameter.get(0)));
+//
+//             return Math.max(leftSubDiameter, rightSubDiameter) + 1;
+//
+//         }
+//
+//     }
 
-         //use a ArrayList's first item to record diameter's update
-         ArrayList<Integer> diameter = new ArrayList<Integer>();
-         diameter.add(0, Integer.MIN_VALUE);
-         subDiameterOfTree(root, diameter);
-         return diameter.get(0);
-     }
 
+    /**
+     * get tree height recursive
+     *
+     * @param root
+     * @return
+     */
+    public int getTreeHeight (BinaryNode root) {
 
-     public int subDiameterOfTree (BinaryNode root, ArrayList<Integer> diameter) {
+        if (root == null)
+            return 0;
+        else {
+            return Math.max(getTreeHeight(root.getLeftNode()), getTreeHeight(root.getRightNode())) + 1;
+        }
+    }
 
-         int leftSubDiameter, rightSubDiameter;
+    public int getTreeDiameter2 (BinaryNode root) {
 
-         if(root == null)
-             return 0;
-         else {
-             leftSubDiameter = subDiameterOfTree(root.getLeftNode(), diameter);
-             rightSubDiameter = subDiameterOfTree(root.getRightNode(), diameter);
+        if (root == null)
+            return 0;
+        else {
 
-             diameter.set(0, Math.max((leftSubDiameter + rightSubDiameter + 1), diameter.get(0)));
+            int rootDia = getTreeHeight(root.getLeftNode()) + getTreeHeight(root.getRightNode()) + 1;
+            int leftTreeDia = getTreeDiameter2(root.getLeftNode());
+            int rightTreeDia = getTreeDiameter2(root.getRightNode());
 
-             return Math.max(leftSubDiameter, rightSubDiameter) + 1;
+            return Math.max(rootDia, Math.max(leftTreeDia, rightTreeDia));
 
-         }
+        }
 
-     }
+    }
 
 
 
@@ -632,7 +665,7 @@ public class BinaryTreeProblems {
         //bp.findHeightOfBinaryTree(root);
 
         //problem #18
-        //System.out.print(bp.getDiameterOfTree(root));
+       // System.out.print(bp.getDiameterOfTree(root));
 
         //tree path problem #1
         //System.out.print(bp.hasPathSum(root, 66));
@@ -655,7 +688,9 @@ public class BinaryTreeProblems {
         //bp.printAllAncestorsOfANode(root, node);
 
         //problem #30
-        bp.zigzagTraversal(root);
+       // bp.zigzagTraversal(root);
+
+        System.out.print(bp.getTreeDiameter2(root));
     }
 
 }
