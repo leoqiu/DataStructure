@@ -312,9 +312,13 @@ public class problems {
      */
     public void lcSubStrDP3StrDP () {
 
+//        String str1 = "OldSite:GeeksforGeeks.org";
+//        String str2 = "NewSite:GeeksQuiz.com";
+//        String str3 = "HAHANewSite:GeeksQduiz.com";
+
         String str1 = "OldSite:GeeksforGeeks.org";
-        String str2 = "NewSite:GeeksQuiz.com";
-        String str3 = "HAHANewSite:GeeksQduiz.com";
+        String str2 = "qSite:abc:GeeksQuiz.com";
+        String str3 = "HAHANewqSite:eab";
 
         char[] charArr1 = str1.toCharArray();
         char[] charArr2 = str2.toCharArray();

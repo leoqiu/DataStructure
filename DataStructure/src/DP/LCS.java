@@ -12,11 +12,11 @@ package DP;
 public class LCS {
     public static void main(String[] args) {
 
-        String strX = "ABCBDAB";
-        //String strX = "ACGTCGTT";
+        //String strX = "ABCBDAB";
+        String strX = "ACGTCGTT";
         char[] X = strX.toCharArray();
-        String strY = "BDCABA";
-        //String strY = "CCACAGGTTA";
+        //String strY = "BDCABA";
+        String strY = "CCACAGGTTA";
         char[] Y = strY.toCharArray();
 
         char[] string = strX.toCharArray();
