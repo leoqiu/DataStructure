@@ -1,4 +1,4 @@
-package COMPANY.amazon;
+package company.amazon;
 
 import java.util.*;
 
@@ -8,7 +8,6 @@ import java.util.*;
  * Date: 8/20/13
  */
 public class ProblemSetOne {
-
 
 
     /**
@@ -515,6 +514,11 @@ public class ProblemSetOne {
          }   */
      }
 
+
+    public void haha () {
+
+
+    }
 
 
 

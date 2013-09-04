@@ -1,4 +1,4 @@
-package COMPANY.amazon;
+package company.amazon;
 
 /**
  * Created with IntelliJ IDEA.
