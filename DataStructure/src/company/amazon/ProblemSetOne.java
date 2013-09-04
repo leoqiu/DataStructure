@@ -327,9 +327,193 @@ public class ProblemSetOne {
      */
 
 
+    /**
+     * Input is a NxN matrix which contains only 0′s and 1′s. The condition is no 1 will occur in a row after 0. Find the index of the row which contains maximum number of zeros.
+     Example: lets say 5×5 matrix
+
+     1 0 0 0 0
+     1 1 0 0 0
+     1 1 1 1 1
+     0 0 0 0 0
+     1 1 1 0 0
+
+     For this input answer is 4th row.
+     solution should have time complexity less than N^2
+     *
+     * @param
+     */
+    public void lineHasMaxZeros () {
+
+        int[] arr1 = {1, 0, 0, 0, 0};
+        int[] arr2 = {1, 1, 1, 1, 0};
+        int[] arr3 = {1, 1, 1, 1, 1};
+        int[] arr4 = {0, 0, 0, 0, 0};
+        int[] arr5 = {1, 1, 1, 0, 0};
+
+        int[][] array = {arr1, arr2, arr3, arr4, arr5};
+        int curLastOnePos = -1;
+        int lastOnePosMaxZero = Integer.MAX_VALUE;
+        int numOfArrayHasMostZero = -1;
+
+//System.out.print(binarySearch1(arr1));
+//System.out.print(binarySearch2(arr1, 0, 4));
+
+        //nlgn
+        for (int i = 0; i < array.length; i++) {
+
+            //curLastOnePos = binarySearch1(array[i]);
+            curLastOnePos = binarySearch2(array[i], 0, array[i].length - 1);
+
+            if (curLastOnePos < lastOnePosMaxZero) {
+                lastOnePosMaxZero = curLastOnePos;
+                numOfArrayHasMostZero = i;
+            }
+        }
+
+        System.out.print(numOfArrayHasMostZero + 1);
+    }
+
+    //iterative version
+    private int binarySearch1 (int[] arr) {
+
+        int low = 0;
+        int high = arr.length - 1;
+        int mid = 0;
+
+        if(arr == null)
+            return Integer.MIN_VALUE;
+        else if (arr[0] == 0)
+            return -1;
+        else if (arr[arr.length-1] == 1)
+            return arr.length-1;
+        else {
+
+            while (low < high) {
+
+                mid = low + (high - low) /2;
+
+                if (arr[mid] == 1)
+                    low = mid;
+
+                if (arr[mid] == 0)
+                    high = mid;
+
+                if (arr[mid] == 1 && arr[mid+1] == 0)
+                    return mid;
+
+            }
+        }
+
+        return -1;
+    }
+
+
+    //recursive
+    //return number of 1's
+    private int binarySearch2 (int[] arr, int low, int high) {
+
+        if (arr == null)
+            return Integer.MAX_VALUE;
+        else if (arr[low] == 0)
+            return 0;
+        else if (arr[high] == 1)
+            return Integer.MAX_VALUE;
+        else {
+
+            int mid = low + (high - low) / 2;
+
+            //check return condition before recursive call
+            if (arr[mid] == 1 && arr[mid+1] == 0)
+                return mid+1;
+
+            if (arr[mid] == 1)
+                return binarySearch2(arr, mid, high);
+
+            if (arr[mid] == 0)
+                return binarySearch2(arr, low, mid);
+
+        }
+
+        return -1;
+    }
+
+
+    /**
+     *
+     * Give an array of integers, which are in repeated format except one integer, write a function to return that integer
+        ex[2,2,3,3,4,4,4,5,5] = 4
+        [2,2,2,3,3,3,3,4,4,4] = 3
+     *
+     *
+     * @param
+     */
+     public void diffRepeatPattern () {
+
+         int[] array = {2,2,3,3,4,4,4,5,5,6,6,7,7,8,8};
+
+         HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
+
+         for (int i = 0; i < array.length; i++){
+             if(hash.containsKey(array[i]))
+                hash.put(array[i], hash.get(array[i]) + 1);
+             else
+                 hash.put(array[i], 1);
+         }
 
 
 
+
+
+         /*
+
+         int curRepeatTimes = -1;
+         int preRepeatTimes = -1;
+
+         int key1 = Integer.MIN_VALUE;
+         int times1 = -1;
+         int key2 = Integer.MIN_VALUE;
+         int times2 = -1;
+
+         Iterator it = hash.entrySet().iterator();
+         while (it.hasNext()) {
+             Map.Entry<Integer, Integer> entry =  (Map.Entry<Integer, Integer>) it.next();
+             curRepeatTimes = entry.getValue();
+
+             if (preRepeatTimes == -1){
+                 preRepeatTimes = curRepeatTimes;
+                 key1 = entry.getKey();
+                 times1 = curRepeatTimes;
+             }else if (preRepeatTimes == curRepeatTimes) {
+                 preRepeatTimes = curRepeatTimes;
+             } else if (preRepeatTimes != curRepeatTimes) {
+                 key2 = entry.getKey();
+                 times2 = curRepeatTimes;
+                 break;
+             }
+         }
+
+         int occurTime1 = 0;
+         int occurTime2 = 0;
+         while (it.hasNext()) {
+
+             Map.Entry<Integer, Integer> entry =  (Map.Entry<Integer, Integer>) it.next();
+             curRepeatTimes = entry.getValue();
+
+             if(curRepeatTimes == times1)
+                 occurTime1++;
+
+             if(curRepeatTimes == times2)
+                 occurTime2++;
+
+             if(occurTime2 > 1) {
+                 System.out.print(key1);
+                 break;
+             } else {
+                 System.out.print(key2);
+                 break;
+             }
+         }   */
+     }
 
 
 
@@ -345,7 +529,9 @@ public class ProblemSetOne {
         ProblemSetOne pso = new ProblemSetOne();
         //pso.rearrangeArray();
         //pso.createFrequencyArray();
-        pso.smallDistanceAmongThreeArray();
+        //pso.smallDistanceAmongThreeArray();
+        //pso.lineHasMaxZeros();
+        pso.diffRepeatPattern();
     }
 
 }
