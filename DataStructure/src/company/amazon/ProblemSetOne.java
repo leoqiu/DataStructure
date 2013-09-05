@@ -515,10 +515,7 @@ public class ProblemSetOne {
      }
 
 
-    public void haha () {
 
-
-    }
 
 
 
