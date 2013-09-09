@@ -649,6 +649,36 @@ public class BinaryTreeProblems {
     }
 
 
+    /**
+     * Lowest Common Ancestor of a Binary Tree
+     *
+     * http://stackoverflow.com/questions/1484473/how-to-find-the-lowest-common-ancestor-of-two-nodes-in-any-binary-tree
+     *
+     *
+     * @param
+     */
+    public BinaryNode lCA (BinaryNode root, BinaryNode p, BinaryNode q) {
+
+        BinaryNode left = null;
+        BinaryNode right = null;
+
+        if (root == null)
+            return null;
+
+        if (root == p || root == q)
+            return root;
+
+        left = lCA(root.getLeftNode(), p, q);
+        right = lCA(root.getRightNode(), p, q);
+
+        if(left != null && right != null)
+            return root;
+
+        return (left != null) ? left : right;
+    }
+
+
+
     public static void main(String[] args) {
 
         BinaryTreeProblems bp = new BinaryTreeProblems();
