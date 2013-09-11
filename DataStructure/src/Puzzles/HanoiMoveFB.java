@@ -66,15 +66,29 @@ public class HanoiMoveFB {
      */
 
 
-    public void hanoiMove (int numDisc, int numPeg, int[] initC, int[] finalC) {
+//    public void hanoiMove (int numDisc, int numPeg, int[] initC, int[] finalC) {
+//
+//    }
+
+    public void hanoiMove (int[] initC, int[] finalC, int n) {
 
 
+        for (int i = n; i >= 1; i--) {
+
+            if(initC[i - 1] == finalC[i - 1]) //already in final place
+                ;
+            else {                            //move
+
+                // initC[i] -> finalC[i]
+
+            }
+
+        }
 
 
 
 
     }
-
 
 
 
