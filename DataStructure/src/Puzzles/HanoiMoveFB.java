@@ -70,7 +70,7 @@ public class HanoiMoveFB {
 //
 //    }
 
-    public void hanoiMove (int[] initC, int[] finalC, int n) {
+    public void hanoiMoveFB (int[] initC, int[] finalC, int n) {
 
 
         for (int i = n; i >= 1; i--) {
@@ -80,6 +80,9 @@ public class HanoiMoveFB {
             else {                            //move
 
                 // initC[i] -> finalC[i]
+                while (initC[i - 1] != finalC[i - 1]) {
+
+                }
 
             }
 
@@ -91,6 +94,34 @@ public class HanoiMoveFB {
     }
 
 
+    /*
+        3 pegs
+        n discs
+
+        init : all discs in 1st peg
+        final: all discs in 3rd peg
+
+    http://blog.sina.com.cn/s/blog_48e3f9cd01000474.html
+
+     */
+    public void hanoi (int n, char a, char b, char c) {
+
+
+        if (n > 0) {
+            hanoi(n - 1, a, c, b);
+            System.out.println("Move top disc from tower " + a + " to top of tower " + b);
+            hanoi(n - 1, c, b, a);
+        }
+
+
+    }
+
+
+    public static void main (String[] args) {
+
+        HanoiMoveFB h = new HanoiMoveFB();
+        h.hanoi(5, 'a', 'b', 'c');
+    }
 
 
 }
