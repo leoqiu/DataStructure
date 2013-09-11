@@ -1,5 +1,7 @@
 package GeeksforGeeksAlgorithms.Strings;
 
+import java.util.HashMap;
+
 /**
  * Created with IntelliJ IDEA.
  * User: shqiu
@@ -394,6 +396,52 @@ public class problems {
 
         }
     }
+
+
+    class Rec {
+
+        int width;
+        int height;
+
+        public Rec (int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        public int getWidthHeightDif () {
+            return Math.abs(width-height);
+        }
+
+    }
+
+    //Time complexity O(n)
+    //Space complexity O(1)
+    public Rec getRec (int numWidgets) {
+
+        Rec maxRec = new Rec(0, Integer.MAX_VALUE);
+
+        for (int i = 1; i <= numWidgets; i++) {
+
+            int curHeight = i;
+            int currentWidth = numWidgets / curHeight;
+
+            int numWidgetLeft = numWidgets % curHeight;
+            if (numWidgetLeft > 0) {
+                currentWidth = currentWidth + 1;
+            }
+
+            int numSpaceLeft = curHeight * currentWidth - numWidgetLeft;
+
+            //if num of space left less equal than 2 && current dif of current width and height less than maxRec (more square)
+            if (numSpaceLeft <= 2 && Math.abs(curHeight - currentWidth) < maxRec.getWidthHeightDif()) {
+                maxRec = new Rec(currentWidth, curHeight);
+            }
+
+        }
+
+        return maxRec;
+    }
+
 
 
     /**
