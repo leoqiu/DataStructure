@@ -28,6 +28,10 @@ public class Solution {
         //read 3rd line
         line = br.readLine();
         System.out.println(line);
+
+        String[] lines = line.split(" ");
+
+
     }
 
 }

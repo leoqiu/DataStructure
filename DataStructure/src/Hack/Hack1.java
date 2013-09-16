@@ -102,6 +102,14 @@ public class Hack1 {
      *  Help Mike
      *
      *  https://www.hackerrank.com/contests/sep13/challenges/help-mike
+     *
+     *
+     *  Hi, I am new to hackerrank.com and could really love to learn the codes from
+     *  other hackers, can someone tell me where I can find the released answers and
+     *  some explanations after the contest is over. I can only find other ppl's
+     *  codes but without any explanations on the Leaderboard. Thx
+     *
+     *  Where to find the released answers and some explanations to the answers after the contest is over
      */
     public int helpMike (int n, int k) {
 
@@ -122,13 +130,162 @@ public class Hack1 {
     }
 
 
+    /**
+     * #3. Sherlock Puzzle
+     *
+     *
+     * https://www.hackerrank.com/contests/sep13/challenges/sherlock-puzzle
+     */
+    private boolean isMatch (int start, int end, char[] chars) {
+
+        boolean isMatch = false;
+        int zeroCount = 0;
+        int oneCount = 0;
+
+        for (int i = start; i <= end; i++) {
+
+            if (chars[i] == '0')
+                zeroCount++;
+            if (chars[i] == '1')
+                oneCount++;
+
+        }
+
+        if (2*zeroCount <= 3*oneCount)
+            isMatch = true;
+
+        return isMatch;
+    }
+
+    private int longestMatch (char[] chars, int n) {
+
+        int curLen = 0;
+        int maxLen = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i+1; j < n; j++) {
+
+                curLen = j - i + 1;
+
+                if (isMatch(i, j, chars) && curLen > maxLen) {
+                       maxLen = curLen;
+                }
+
+            }
+        }
+
+        return maxLen;
+
+    }
+
+
+    public int sherlockPuzzle (String s, int k) {
+
+        int len = 0;
+        char[] chars = s.toCharArray();
+        int n = chars.length;
+
+        if (isMatch(0, n-1, chars))
+            return n*k;
+        else if (isMatch(1, n-1, chars) && isMatch(0, n-2, chars))
+            return n*2;
+        else
+            return longestMatch(chars, n);
+
+    }
+
+
+    /**
+     * Chocolate Game
+     *
+     *  https://www.hackerrank.com/contests/sep13/challenges/chocolate-game
+     */
+    private boolean isLarWin (int[] array, int start, int end) {
+
+        int sum = 0;
+
+        for (int i = start; i <= end; i++) {
+            sum = sum + array[i];
+        }
+
+        if(sum%2 == 1)
+            return true;
+        else
+            return false;
+
+    }
+
+
+    public int chocolateGame (int n, int[] array) {
+
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i+1; j < n; j++) {
+
+                if(isLarWin(array, i, j))
+                    count++;
+
+            }
+        }
+
+        return count;
+    }
+
+
+    /**
+     * Grid Lines
+     *
+     * https://www.hackerrank.com/contests/sep13/challenges/grid-lines
+     */
+    public int gridLines (int height, int width, int lineLen) {
+
+        int count = 0;
+
+        if (height < lineLen - 1 && width < lineLen - 1)
+            return count;
+        else if (height < lineLen - 1 && width >= lineLen - 1)
+            return height + 1;
+        else if (height >= lineLen - 1 && width < lineLen - 1)
+            return  width + 1;
+        else if (height == lineLen - 1 && width == lineLen - 1) {
+            return 8;
+
+        } else {
+            int a = height - (lineLen - 1);
+            int b = width - (lineLen - 1);
+            return a*b*8;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public static void main (String[] args) {
 
         Hack1 hack = new Hack1();
         //System.out.print(hack.sherlockAndBeast(11));
-        System.out.print(hack.helpMike(667, 8));
+        //System.out.print(hack.helpMike(100000 , 99));
+        //System.out.print(hack.sherlockPuzzle("011100010110101010101001100101010010" , 20));
+        //int[] arr = {1, 1, 2, 2, 3};
+        //System.out.print(hack.chocolateGame(5 , arr));
+        System.out.print(hack.gridLines(22, 200 , 17));
 
     }
 
