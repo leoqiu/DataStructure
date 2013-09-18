@@ -709,7 +709,7 @@ public class BinaryTreeProblems {
         //System.out.print(bp.findMaxPathOfSumStartsFromAnyNode(root));
 
         //problem #20
-        //System.out.print(bp.getRootToLeafPathList(root));
+        System.out.print(bp.getRootToLeafPathList(root));
 
         //problem #24
         //bp.getMirrorOfBinaryTree(root);
@@ -722,7 +722,7 @@ public class BinaryTreeProblems {
         //problem #30
        // bp.zigzagTraversal(root);
 
-        System.out.print(bp.getTreeDiameter2(root));
+        //System.out.print(bp.getTreeDiameter2(root));
     }
 
 }

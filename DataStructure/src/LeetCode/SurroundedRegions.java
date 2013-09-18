@@ -7,8 +7,9 @@ import java.util.Stack;
  * Created with IntelliJ IDEA.
  * User: shqiu
  * Date: 9/16/13
- * Time: 12:22 PM
- * To change this template use File | Settings | File Templates.
+ *
+ *
+ * http://oj.leetcode.com/problems/surrounded-regions/
  */
 public class SurroundedRegions {
 
@@ -21,124 +22,6 @@ public class SurroundedRegions {
                 System.out.print(chars[i][j] + " ");
             System.out.println();
         }
-
-    }
-
-    public void flip (int x , int y, char[][] chars, int xn, int yn, int[][] isVisited) {
-
-        //if point is on border
-        if (x == 0 || y == 0 || x == xn || y ==yn)
-            return;
-
-        //mark (x, y) at visited
-        isVisited[x][y] = 1;
-
-        if ( (chars[x-1][y] == 'x' || isVisited[x-1][y] == 1) && (chars[x+1][y] == 'x' || isVisited[x+1][y] == 1)
-                && (chars[x][y-1] == 'x' || isVisited[x][y-1] == 1)  && (chars[x][y+1] == 'x' || isVisited[x][y+1] == 1))
-            chars[x][y] = 'x';
-
-        if (chars[x-1][y] == 'o' && isVisited[x-1][y] == 0 ) {
-            flip(x-1, y, chars, xn, yn, isVisited);
-        }
-
-
-        if (chars[x+1][y] == 'o' && isVisited[x+1][y] == 0){
-            flip(x+1, y, chars, xn, yn, isVisited);
-        }
-
-
-        if (chars[x][y-1] == 'o' && isVisited[x][y-1] == 0) {
-            flip(x, y-1, chars, xn, yn, isVisited);
-        }
-
-
-        if (chars[x][y+1] == 'o' && isVisited[x][y+1] == 0) {
-            flip(x, y+1, chars, xn, yn, isVisited);
-        }
-
-//        if ( (chars[x-1][y] == 'x' || isVisited[x-1][y] == 1) && (chars[x+1][y] == 'x' || isVisited[x+1][y] == 1)
-//                && (chars[x][y-1] == 'x' || isVisited[x][y-1] == 1)  && (chars[x][y+1] == 'x' || isVisited[x][y+1] == 1))
-//            chars[x][y] = 'x';
-
-//        if (chars[x-1][y] == 'x' && chars[x+1][y] == 'x' && chars[x][y-1] == 'x' && chars[x][y+1] == 'x')
-//            chars[x][y] = 'x';
-
-    }
-
-    public void flip2 (int x , int y, char[][] chars, int xn, int yn, int[][] isVisited) {
-
-        //if point is on border
-        if (x == 0 || y == 0 || x == xn || y ==yn)
-            return;
-
-        //mark (x, y) at visited
-        isVisited[x][y] = 1;
-
-        if ( (chars[x-1][y] == 'x' || isVisited[x-1][y] == 1) && (chars[x+1][y] == 'x' || isVisited[x+1][y] == 1)
-                && (chars[x][y-1] == 'x' || isVisited[x][y-1] == 1)  && (chars[x][y+1] == 'x' || isVisited[x][y+1] == 1))
-            chars[x][y] = 'x';
-
-        if (chars[x-1][y] == 'o' ) {
-            flip2(x-1, y, chars, xn, yn, isVisited);
-        }
-
-
-        if (chars[x+1][y] == 'o' ){
-            flip2(x+1, y, chars, xn, yn, isVisited);
-        }
-
-
-        if (chars[x][y-1] == 'o') {
-            flip2(x, y-1, chars, xn, yn, isVisited);
-        }
-
-
-        if (chars[x][y+1] == 'o' ) {
-            flip2(x, y+1, chars, xn, yn, isVisited);
-        }
-
-//        if ( (chars[x-1][y] == 'x' || isVisited[x-1][y] == 1) && (chars[x+1][y] == 'x' || isVisited[x+1][y] == 1)
-//                && (chars[x][y-1] == 'x' || isVisited[x][y-1] == 1)  && (chars[x][y+1] == 'x' || isVisited[x][y+1] == 1))
-//            chars[x][y] = 'x';
-
-//        if (chars[x-1][y] == 'x' && chars[x+1][y] == 'x' && chars[x][y-1] == 'x' && chars[x][y+1] == 'x')
-//            chars[x][y] = 'x';
-
-    }
-
-
-    public void flip3 (int x , int y, char[][] chars, int[][] isVisited) {
-
-        //if point is on border
-        if (x == 0 || y == 0 || x == chars.length - 1 || y == chars[0].length - 1)
-            return;
-
-        //mark (x, y) at visited
-        isVisited[x][y] = 1;
-
-        if ( (chars[x-1][y] == 'x' || isVisited[x-1][y] == 1) && (chars[x+1][y] == 'x' || isVisited[x+1][y] == 1)
-                && (chars[x][y-1] == 'x' || isVisited[x][y-1] == 1)  && (chars[x][y+1] == 'x' || isVisited[x][y+1] == 1))
-            chars[x][y] = 'x';
-
-        if (chars[x-1][y] == 'o') {
-            flip3(x-1, y, chars, isVisited);
-        }
-
-
-        if (chars[x+1][y] == 'o'){
-            flip3(x+1, y, chars, isVisited);
-        }
-
-
-        if (chars[x][y-1] == 'o' ) {
-            flip3(x, y-1, chars, isVisited);
-        }
-
-
-        if (chars[x][y+1] == 'o' ) {
-            flip3(x, y+1, chars, isVisited);
-        }
-
 
     }
 
@@ -172,7 +55,7 @@ public class SurroundedRegions {
 
 
         if (chars[x][y+1] == 'o' ) {
-            flip3(x, y+1, chars, isVisited);
+            flip4(x, y+1, chars, isVisited);
         }
 
 

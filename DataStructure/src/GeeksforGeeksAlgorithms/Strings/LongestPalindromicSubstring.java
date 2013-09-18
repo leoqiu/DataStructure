@@ -23,7 +23,7 @@ public class LongestPalindromicSubstring {
 
 
     /*
-Longest Palindromic Substring | Set 1
+Longest Palindro mic Substring | Set 1
 October 14, 2012
 
 Given a string, find the longest substring which is palindrome. For example, if the given string is “forgeeksskeegfor”, the output should be “geeksskeeg”.
