@@ -99,9 +99,7 @@ public class PalindromePartitioning1 {
                 if (nodeS.y + 1 == curNode.x) // if nodeS and curNode are adjacent
                     allPathsFromNodeToAnotherGraph(curNode, nodeE, path, pathList, list);
             }
-
             path.remove(path.size() - 1);
-
         }
 
     }
