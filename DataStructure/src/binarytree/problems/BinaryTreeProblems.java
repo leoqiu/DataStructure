@@ -461,24 +461,24 @@ public class BinaryTreeProblems {
      *
      * @param
      */
-    public ArrayList<ArrayList<Integer>> getRootToLeafPathList(BinaryNode root) {
+    public ArrayList<ArrayList<Character>> getRootToLeafPathList(BinaryNode root) {
 
-        ArrayList<ArrayList<Integer>> pathsList = new ArrayList<ArrayList<Integer>>();
-        collectRootToLeafPathList(root, new ArrayList<Integer>(), pathsList);
+        ArrayList<ArrayList<Character>> pathsList = new ArrayList<ArrayList<Character>>();
+        collectRootToLeafPathList(root, new ArrayList<Character>(), pathsList);
         return pathsList;
     }
 
 
-    private void collectRootToLeafPathList(BinaryNode root, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> pathList) {
+    private void collectRootToLeafPathList(BinaryNode root, ArrayList<Character> path, ArrayList<ArrayList<Character>> pathList) {
 
         if(root == null)
             return;
         else {
 
-            path.add(root.getiData());
+            path.add(root.getcData());
             //meet the leaf
             if(root.getLeftNode() == null && root.getRightNode() == null) {
-                ArrayList<Integer> currentPath = new ArrayList<Integer>(path);
+                ArrayList<Character> currentPath = new ArrayList<Character>(path);
                 pathList.add(currentPath);
             }
 
@@ -486,6 +486,43 @@ public class BinaryTreeProblems {
             collectRootToLeafPathList(root.getRightNode(), path, pathList);
 
             path.remove(path.size() - 1);
+        }
+
+    }
+
+    private void printPath (char[] path, int pathLen) {
+
+        for (int i = 0; i < pathLen; i++) {
+            System.out.print(path[i] + " ");
+        }
+
+    }
+
+    /**
+     *
+     * #1. preorder traversal 变形
+     *
+     * @param root
+     * @param path
+     * @param pathLen
+     */
+    private void printRootToLeafPaths (BinaryNode root, char[] path, int pathLen) {
+
+        if (root == null)
+            return;
+        else {
+
+            path[pathLen] = root.getcData();
+            pathLen++;
+
+            if (root.getLeftNode() == null && root.getRightNode() == null) {
+                printPath(path, pathLen);
+                System.out.println();
+            }
+
+            printRootToLeafPaths(root.getLeftNode(), path, pathLen);
+            printRootToLeafPaths(root.getRightNode(), path, pathLen);
+
         }
 
     }
@@ -710,7 +747,7 @@ public class BinaryTreeProblems {
 
         //problem #20
         System.out.print(bp.getRootToLeafPathList(root));
-
+        //bp.printRootToLeafPaths(root, new char[100], 0);
         //problem #24
         //bp.getMirrorOfBinaryTree(root);
         //BinaryTree.levelOrderPrintBinaryTree(root);
