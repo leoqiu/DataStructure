@@ -2,55 +2,37 @@ package Hack.helpMike;
 
 /**
  * Created with IntelliJ IDEA.
- * User: leo
- * Date: 9/15/13
- * Time: 5:35 PM
+ * User: shqiu
+ * Date: 9/16/13
+ * Time: 10:12 AM
  * To change this template use File | Settings | File Templates.
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
 public class Solution {
-    static BufferedReader in = new BufferedReader(new InputStreamReader(
-            System.in));
-    static StringBuilder out = new StringBuilder();
 
-    public static void main(String[] args) throws NumberFormatException, IOException {
-        int numCases = Integer.parseInt(in.readLine());
+    public static void main(String[] args) {
+        System.out.print(f(10, 4));
+    }
 
-        for(int t = 0; t < numCases; t ++)
-        {
-            String line = in.readLine();
-            String[] data = line.split(" ");
-            int n = Integer.parseInt(data[0]);
-            int k = Integer.parseInt(data[1]);
-            long total = 0;
-            for(int i = 0; i <= k/2; i ++)
-            {
-                long num = n/k;
-                if(n%k >= i && i != 0)
-                {
-                    num ++;
-                }
-
-                if(i == 0 || i + i == k)
-                {
-                    total += num*(num-1)/2;
-                }
-                else
-                {
-                    long num2 = n/k;
-                    if(n%k >= (k-i))
-                    {
-                        num2 ++;
-                    }
-                    total += num*num2;
-                }
-            }
-            out.append(total + "\n");
+    private static long f(int  n, int k){
+        long[] c = new long[k];
+        int r = n % k;
+        for(int i = 1; i <= r; i++) c[i]++;
+        int m = n / k;
+        for(int i = 0; i < k; i++) c[i] += m;
+        long t = c[0]*(c[0]-1)/2;
+        for(int i = 1; i < k / 2; i++){
+            t += c[i] * c[k-i];
         }
-        System.out.print(out);
+        if(k % 2 != 0) t += c[k/2]*c[k-k/2];
+        if(k % 2 == 0) t += c[k/2]*(c[k/2]-1)/2;
+        return t;
     }
 }
-
