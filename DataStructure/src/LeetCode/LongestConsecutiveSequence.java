@@ -24,6 +24,9 @@ import java.util.Map;
  *
  * [2147483646,-2147483647,0,2,2147483644,-2147483645,2147483645]
  *
+ *
+ * Algorithm core : hashtable
+ *
  */
 public class LongestConsecutiveSequence {
 

@@ -130,6 +130,43 @@ public class BasicOperations {
     }
 
 
+    public void unweightShortestPath (Graph graph, int start) {
+
+        Queue<Integer> queue = new LinkedList<Integer>();
+        queue.offer(start);
+        graph.vertexList[start].visited = true;
+        int v2;
+
+        //init distance array
+        int[] distance = new int[graph.vertexCount];
+        for (int i = 0; i < distance.length; i++) {
+            distance[i] = -1;
+        }
+        distance[start] = 0;
+
+        //init path array
+        int[] path = new int[graph.vertexCount];
+
+        while (!queue.isEmpty()) {
+
+            int v1 = queue.poll();
+            while ( (v2=graph.getAdjUnvisitedVertex(v1)) != -1) {
+
+                if (distance[v2] == -1) {
+                    distance[v2] = distance[v1] + 1;
+                    path[v2] = v1;
+                    graph.vertexList[v2].visited = true;
+                    queue.offer(v2);
+                }
+
+            }
+
+
+        }
+
+        System.out.println();
+    }
+
 
 
     public static void main (String[] args) {
@@ -155,10 +192,14 @@ public class BasicOperations {
         graph.addEge(7 , 1);
         graph.addEge(7 , 4);
 
+        //
+        graph.addEge(1 , 4);
+
         BasicOperations bo = new BasicOperations();
         //bo.dfs(graph);
         //bo.dfsR(graph, 0);
-        bo.bfs(graph);
+        //bo.bfs(graph);
+        bo.unweightShortestPath (graph, 0);
     }
 }
 

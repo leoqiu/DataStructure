@@ -23,6 +23,8 @@ import java.util.ArrayList;
  *
  * @see LeetCode.test.GraphTest
  *
+ * Algorithm core : all paths from one node to another in Graph
+ *
  */
 
 

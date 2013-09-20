@@ -10,6 +10,8 @@ import java.util.Stack;
  *
  *
  * http://oj.leetcode.com/problems/surrounded-regions/
+ *
+ * Algorithm core : Graph dfs or bfs search
  */
 public class SurroundedRegions {
 

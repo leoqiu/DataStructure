@@ -16,6 +16,8 @@ import java.util.ArrayList;
  * Output
  * 4
  *
+ * Algorithm core : all paths from one node to another in graph
+ *
  */
 
 
