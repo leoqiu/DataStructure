@@ -54,8 +54,73 @@ public class NQueens {
         return isFull;
     }
 
+    private void placeAQueen (int[][] board, Position pos, int n) {
+
+        //mark places to could be attacked
+        for (int i = 0; i < n; i++) {
+            board[pos.x][i] = 2;
+            board[i][pos.y] = 2;
+        }
+
+        for (int i = pos.x, j = pos.y; !(i < 0 || i > n - 1 || j < 0 || j > n-1); i--, j--)
+            board[i][j] = 2;
+        for (int i = pos.x, j = pos.y; !(i < 0 || i > n - 1 || j < 0 || j > n-1); i++, j++)
+            board[i][j] = 2;
+        for (int i = pos.x, j = pos.y; !(i < 0 || i > n - 1 || j < 0 || j > n-1); i--, j++)
+            board[i][j] = 2;
+        for (int i = pos.x, j = pos.y; !(i < 0 || i > n - 1 || j < 0 || j > n-1); i++, j--)
+            board[i][j] = 2;
+
+        //mark first Queen
+        board[pos.x][pos.y] = 1;
+
+    }
+
+    public void getChessBoard2 (int[][] board, int n, Position curPos ,Position[] positions, int queenNum) {
+
+        if(isBoardFull(board))
+            return;
+        else {
+
+            placeAQueen (board, curPos, n);
+            positions[queenNum++] = curPos;
+
+
+            System.out.println();
+            printPos(positions, queenNum);
+
+            if (queenNum == n) {
+
+            }
+
+            for (int i = 0; i < board.length; i++) {
+                for(int j = 0; j < board[i].length; j++) {
+                    if (board[i][j] == 0) {
+                        curPos = new Position(i, j);
+                        //positions.add(new Position(i, j));
+                        getChessBoard2 (board, n , curPos, positions,  queenNum) ;
+                    }
+                }
+            }
+
+            System.out.println("----------"+ queenNum + "-------------");
+            printPos(positions, queenNum);
+
+        }
+
+    }
+
+
+    private void printPos (Position[] positions, int queenNum) {
+        for (int i = 0; i < queenNum; i++) {
+            System.out.print("(" + positions[i].x + ", " + positions[i].y + ")");
+        }
+        System.out.println();
+
+    }
+
     // Queen : 1, Empty : 0; can be attacked : 2
-    private void getChessBoard (int[][] board, ArrayList<int[][]> boards ,Position firstPos, int queenNum, int n) {
+    private void getChessBoard1 (int[][] board, ArrayList<int[][]> boards ,Position firstPos, int queenNum, int n) {
 
         //printBoard(board);
         //int[][] boardRep = null;
@@ -66,30 +131,16 @@ public class NQueens {
 
 
             //mark places to could be attacked
-            for (int i = 0; i < n; i++) {
-                board[firstPos.x][i] = 2;
-                board[i][firstPos.y] = 2;
-            }
-
-            for (int i = firstPos.x, j = firstPos.y; !(i < 0 || i > n - 1 || j < 0 || j > n-1); i--, j--)
-                board[i][j] = 2;
-            for (int i = firstPos.x, j = firstPos.y; !(i < 0 || i > n - 1 || j < 0 || j > n-1); i++, j++)
-                board[i][j] = 2;
-            for (int i = firstPos.x, j = firstPos.y; !(i < 0 || i > n - 1 || j < 0 || j > n-1); i--, j++)
-                board[i][j] = 2;
-            for (int i = firstPos.x, j = firstPos.y; !(i < 0 || i > n - 1 || j < 0 || j > n-1); i++, j--)
-                board[i][j] = 2;
-
-            //mark first Queen
-            board[firstPos.x][firstPos.y] = 1;
+            placeAQueen (board, firstPos, n);
             queenNum--;
 
             System.out.println();
             printBoard(board);
+            //boards.add(board);
 
             if (queenNum == 0) {
-                int[][] res = board.clone();
-                boards.add(res);
+                //int[][] res = board.clone();
+                //boards.add(res);
 
                 System.out.println();
                 printBoard(board);
@@ -100,7 +151,7 @@ public class NQueens {
                     if (board[i][j] == 0) {
                         firstPos = new Position(i, j);
                         //positions.add(new Position(i, j));
-                        getChessBoard (board, boards , firstPos,  queenNum,  n) ;
+                        getChessBoard1 (board, boards , firstPos,  queenNum,  n) ;
                     }
                 }
             }
@@ -116,6 +167,7 @@ public class NQueens {
     }
 
 
+
     public static void main (String[] args) {
 
         NQueens nq = new NQueens();
@@ -127,7 +179,9 @@ public class NQueens {
 
 
 
-        nq.getChessBoard(board, boards , new Position(0, 0), n, n);
+        //nq.getChessBoard1(board, boards , new Position(0, 0), n, n);
+        nq.getChessBoard2(board, n , new Position(0, 0), new Position[10], 0);
+
 
 //        for (int i = 0; i < n; i++) {
 //            for (int j = 0; j < n; j++) {
