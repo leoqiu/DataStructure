@@ -101,8 +101,6 @@ public class NQueens {
                         firstPos = new Position(i, j);
                         //positions.add(new Position(i, j));
                         getChessBoard (board, boards , firstPos,  queenNum,  n) ;
-                        //System.out.println(i + "-------------" + j);
-                        board[i][j] = 0;
                     }
                 }
             }
