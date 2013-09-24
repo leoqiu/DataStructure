@@ -96,6 +96,7 @@ public class GraphTest {
 
             path.remove(path.size() - 1);
 
+            //System.out.println(path);
         }
 
     }
