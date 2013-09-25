@@ -746,8 +746,8 @@ public class BinaryTreeProblems {
         //System.out.print(bp.findMaxPathOfSumStartsFromAnyNode(root));
 
         //problem #20
-        System.out.print(bp.getRootToLeafPathList(root));
-        //bp.printRootToLeafPaths(root, new char[100], 0);
+        //System.out.print(bp.getRootToLeafPathList(root));
+        bp.printRootToLeafPaths(root, new char[100], 0);
         //problem #24
         //bp.getMirrorOfBinaryTree(root);
         //BinaryTree.levelOrderPrintBinaryTree(root);

@@ -75,9 +75,9 @@ public class GraphTest {
 
     private void allPathsFromNodeToAnotherGraph (GNode nodeS, GNode nodeE, ArrayList<GNode> path, ArrayList<ArrayList<GNode>> pathList, ArrayList<GNode> list) {
 
-        if (nodeS == null)
-            return;
-        else {
+//        if (nodeS == null)
+//            return;
+//        else {
 
             //nodeS.isVisited = true;
             path.add(nodeS);
@@ -96,8 +96,8 @@ public class GraphTest {
 
             path.remove(path.size() - 1);
 
-            //System.out.println(path);
-        }
+            System.out.println(path);
+//        }
 
     }
 
@@ -105,7 +105,7 @@ public class GraphTest {
     public ArrayList<ArrayList<GNode>> getRootToLeafPathList(ArrayList<GNode> list) {
 
         ArrayList<ArrayList<GNode>> pathList = new ArrayList<ArrayList<GNode>> ();
-        allPathsFromNodeToAnotherGraph(list.get(1), list.get(9), new ArrayList<GNode>(), pathList, list);
+        allPathsFromNodeToAnotherGraph(list.get(0), list.get(9), new ArrayList<GNode>(), pathList, list);
         return pathList;
     }
 
