@@ -75,7 +75,7 @@ public class NQueensImproved {
 //        }
 //        getChessBoard(queens, n, 0);
         NQueensImproved nqi = new NQueensImproved();
-        System.out.print(nqi.totalNQueens(15));
+        System.out.print(nqi.totalNQueens(8));
 
     }
 
