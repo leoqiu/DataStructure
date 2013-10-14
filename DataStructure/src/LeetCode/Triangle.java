@@ -64,7 +64,7 @@ public class Triangle {
     }
 
 
-    private int getCurMin (Stack<Integer> stack) {
+    private static int getCurSum (Stack<Integer> stack) {
 
         Iterator<Integer> it = stack.iterator();
         int sum = 0;
@@ -76,9 +76,36 @@ public class Triangle {
 
     }
 
-    private int getMaxSum2 (ArrayList<ArrayList<Integer>> triangle, int n, int rootIndex) {
+
+    public static int getMaxSum3 (ArrayList<ArrayList<Integer>> triangle) {
+
+        int maxSum = Integer.MIN_VALUE;
+        int pathSumNum = triangle.get(triangle.size() - 1).size();
+        int[] pathSums = new int[pathSumNum];
+
+
+        for (int i = 0; i < pathSumNum; i++) {
+            ArrayList<Integer> curList = triangle.get(i);
+            for (int k = 0; k < curList.size(); k++) {
+                for (int j = k; j < k + pathSumNum-i; j++) {
+                    pathSums[j] = pathSums[j] + curList.get(k);
+
+                }
+            }
+
+
+
+
+        }
+
+        return maxSum;
+    }
+
+
+    private static int getMaxSum2 (ArrayList<ArrayList<Integer>> triangle, int n, int rootIndex) {
 
         int level = 0;
+        int minSum = Integer.MAX_VALUE;
 
         if (n == 0)
             return 0;
@@ -88,22 +115,36 @@ public class Triangle {
 
             Stack<Integer> stack = new Stack<Integer>();
             stack.push(triangle.get(level).get(rootIndex));
+ //System.out.println(level + " - " + rootIndex);
             level++;
 
             while (!stack.isEmpty()) {
 
+                while (level < n) {
 
+                    stack.push(triangle.get(level).get(rootIndex));
+
+                    level++;
+
+                }
+
+//                if(level == n) {
+//                   minSum = Math.min(minSum, getCurSum(stack) );
+//                }
+
+               int cur =  stack.pop();
+                System.out.println(level + " - " + rootIndex + " - " + cur);
+                level--;
+
+                rootIndex = rootIndex + 1;
+//                stack.push(triangle.get(level).get(rootIndex+1));
+//                level++;
 
             }
 
-
-
-
         }
 
-
-
-        return 0;
+        return minSum;
 
 
     }
@@ -130,11 +171,13 @@ public class Triangle {
         triangle.add(list3);
         triangle.add(list4);
 
-        System.out.println(mimSum);
-        getMaxSum(triangle, 0, 4, 0, 0);
-        System.out.println(mimSum);
+        //System.out.println(mimSum);
+        //getMaxSum(triangle, 0, 4, 0, 0);
+        //System.out.println(mimSum);
 
         //System.out.print(getMaxSum2(triangle, 1, 4, 0));
+        //getMaxSum3(triangle);
+        getMaxSum2(triangle, triangle.size(), 0);
 
     }
 
