@@ -82,6 +82,23 @@ public class GiveCandy {
         int[] candies = new int[n];
         int minCandy = 0;
 
+        //case n == 1
+        if (n == 1)
+            return 1;
+
+        //case n == 2
+        if (n == 2) {
+
+            if (ratings[0] == ratings[1])
+                return 2;
+            else
+                return 3;
+
+        }
+
+//        if(isAllEleSame(ratings , n))
+//            return n;
+
         for (int i = 0; i < n ; i++) {
 
             if (i == 0)
@@ -94,20 +111,114 @@ public class GiveCandy {
                     candies[i] = candies[i-1] + 1;
                 else
                     candies[i] = candies[i-1];
+                    //candies[i] = 1;
 
             }
 
         }
 
-        Arrays.sort(candies);
+        int min = getMin(candies , n);
+        int diff = 1 - min;
 
-        for (int i = 0; i < n; i++)
-            minCandy = minCandy + candies[i];
+        for (int i = 0; i < n; i++) {
+            candies[i] = candies[i] + diff;
+            minCandy += candies[i];
+        }
 
-        minCandy = minCandy + (1 - candies[0]) * n;
 
+        int current = 0;
+        //ascending order forward check
+        if (candies[current] > 1) {
+            while (current < n - 1) {
+
+                if (candies[current] <= candies[current+1])
+                    current++;
+                else
+                    break;
+
+            }
+
+            for (int i = 0; i < current; i++)
+                minCandy = minCandy - 1;
+        }
+
+
+        //descending order forward check
+        current = 0;
+        if (candies[current] > 2) {
+
+            while (current < n - 1) {
+
+                if(candies[current] >= candies[current+1])
+                    current++;
+                else
+                    break;
+            }
+
+            if (candies[current] != 1) {
+                for (int i = 0; i <= current; i++)
+                    minCandy = minCandy - 1;
+            }
+        }
+
+
+        current = n - 1;
+        //ascending order backward check
+        if (candies[current] > 1) {
+
+            while (current > 0) {
+
+                if (candies[current] <= candies[current - 1])
+                    current--;
+                else
+                    break;
+            }
+
+            for (int i = n - 1; i > current; i--)
+                minCandy = minCandy - 1;
+        }
+
+
+        //descending order backward check
+        current = n - 1;
+        if (candies[current] > 2) {
+
+            while (current > 0) {
+                if (candies[current] >= candies[current - 1])
+                    current--;
+                else
+                    break;
+            }
+
+            if(candies[current] != 1) {
+                for (int i = n - 1; i > current; i--)
+                    minCandy = minCandy - 1;
+            }
+        }
 
         return minCandy;
+    }
+
+    private static int getMin (int candies[], int n) {
+
+        int min = Integer.MAX_VALUE;
+
+        for (int i = 0; i < n; i++ ) {
+            min = Math.min(min, candies[i]);
+        }
+
+        return min;
+    }
+
+    private static boolean isAllEleSame(int[] ratings, int n) {
+
+        for (int i = 0; i < n; i++)
+            if (n != 0)
+                if (ratings[n] != ratings[n-1])
+                    return false;
+
+        return true;
+
     }
 
 
@@ -125,7 +236,19 @@ public class GiveCandy {
 
     public static void main (String[] args) {
 
-        int[] ratings = {2, 3, 4, 1, 3, 4, 7, 10, 23, 5, 7};
+        //int[] ratings = {2, 3, 4, 1, 3, 4, 7, 10, 23, 5, 7};
+
+        //5,1,1,1,10,2,1,1,1,3
+
+        //int[] ratings = {2, 2, 1, 2, 2};
+        //int[] ratings = {1,3,4,3,2,1};
+        //int[] ratings = {5,1,1,1,10,2,1,1,1,3};
+        //int[] ratings = {1,1,1};
+        //int[] ratings = {1,3, 5};
+        //int[] ratings = {5,3,1};
+
+        int[] ratings = {1, 0 , 2};
+
 
         System.out.println(candy2(ratings));
 
