@@ -199,6 +199,60 @@ public class GiveCandy {
         return minCandy;
     }
 
+    private static int candy3 (int[] ratings) {
+
+        int  minCandy = 0;
+        int n = ratings.length;
+        int[] candies = new int[n];
+
+        //case n == 1
+        if (n == 1)
+            return 1;
+
+        //case n == 2
+        if (n == 2) {
+            if (ratings[0] == ratings[1])
+                return 2;
+            else
+                return 3;
+        }
+
+        //construct candies array
+        for (int i = 0; i < n ; i++) {
+
+            if (i == 0)
+                candies[i] = 1;
+            else {
+
+                if (ratings[i] < ratings[i-1])
+                    candies[i] = candies[i-1] - 1;
+                else if (ratings[i] > ratings[i-1])
+                    candies[i] = candies[i-1] + 1;
+                else
+                    candies[i] = candies[i-1];
+            }
+        }
+
+
+
+        return minCandy;
+    }
+
+    private static int getMinIndex (int ratings[], int n) {
+        int min = Integer.MAX_VALUE;
+        int minIndex = Integer.MAX_VALUE;
+
+        for (int i = 0; i < n; i++ ) {
+            if (ratings[i] < min) {
+                min = ratings[i];
+                minIndex = i;
+            }
+        }
+
+        return minIndex;
+    }
+
+
     private static int getMin (int candies[], int n) {
 
         int min = Integer.MAX_VALUE;
@@ -222,6 +276,47 @@ public class GiveCandy {
     }
 
 
+    public static int candy4 (int[] ratings) {
+
+        int n = ratings.length;
+
+        int[] candies = new int[n];
+        candies[0] = 1;
+
+        if (n == 0)
+            return 0;
+
+        for (int i = 1; i < n; i++) {
+
+            if (ratings[i] > ratings[i-1])
+                candies[i] = candies[i-1] + 1;
+
+            if (ratings[i] == ratings[i-1])
+                candies[i] = 1;
+
+            if (ratings[i] < ratings[i-1]) {
+                candies[i] = 1;
+
+                if(candies[i-1] == 1) {
+                    int j = i;
+                    while (j > 0 && ratings[j-1] > ratings[j] && candies[j-1] == candies[j]) {
+
+                        candies[j-1] = candies[j-1] + 1;
+                        j--;
+                    }
+                }
+            }
+
+        }
+
+        int sum = 0;
+        for (int i =0; i < n; i++) {
+            sum += candies[i];
+        }
+
+        return sum;
+    }
+
     /*
 
         2  3  4  1  3  4  7  10  23  5  7
@@ -239,18 +334,19 @@ public class GiveCandy {
         //int[] ratings = {2, 3, 4, 1, 3, 4, 7, 10, 23, 5, 7};
 
         //5,1,1,1,10,2,1,1,1,3
+        int[] ratings = {5,1,1,1,10,2,1,1,1,3};
 
         //int[] ratings = {2, 2, 1, 2, 2};
         //int[] ratings = {1,3,4,3,2,1};
-        //int[] ratings = {5,1,1,1,10,2,1,1,1,3};
+        //int[] ratings = {n};
         //int[] ratings = {1,1,1};
         //int[] ratings = {1,3, 5};
         //int[] ratings = {5,3,1};
 
-        int[] ratings = {1, 0 , 2};
+        //int[] ratings = {1, 0 , 2};
 
 
-        System.out.println(candy2(ratings));
+        System.out.println(candy4(ratings));
 
     }
 
