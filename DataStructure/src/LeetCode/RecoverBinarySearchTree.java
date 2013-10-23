@@ -1,0 +1,183 @@
+package LeetCode;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: shqiu
+ * Date: 10/22/13
+ *
+ *
+ *  http://oj.leetcode.com/problems/recover-binary-search-tree/
+ *
+ */
+
+public class RecoverBinarySearchTree{
+
+    public void recoverTree2(TreeNode root) {
+
+        if(root == null)
+            return;
+        else {
+
+            TreeNode left = root.left;
+            TreeNode right = root.right;
+
+            if (left == null && right == null)
+                return;
+            else if (left == null || right == null) {
+
+                if(left == null) {
+                    if(right.val < root.val) {
+                        int tmp = right.val;
+                        right.val = root.val;
+                        root.val = tmp;
+                    }
+
+                    recoverTree(right);
+                }
+
+                if(right == null) {
+                    if(left.val > root.val) {
+                        int tmp = left.val;
+                        left.val = root.val;
+                        root.val = tmp;
+                    }
+
+                    recoverTree(left);
+                }
+
+                return;
+            } else {
+                if(left.val > root.val && left.val < right.val) {
+                    int tmp = left.val;
+                    left.val = root.val;
+                    root.val = tmp;
+                }
+
+                if(right.val < root.val && left.val < right.val) {
+                    int tmp = right.val;
+                    right.val = root.val;
+                    root.val = tmp;
+                }
+
+                if(right.val < root.val && left.val < root.val) {
+                    int tmp = right.val;
+                    right.val = left.val;
+                    left.val = tmp;
+                }
+
+                recoverTree(left);
+                recoverTree(right);
+            }
+
+        }
+
+
+    }
+
+    public void recoverTree(TreeNode root) {
+
+        if(root == null)
+            return;
+        else {
+
+            Queue<TreeNode> queue = new LinkedList<TreeNode>();
+            queue.offer(root);
+
+            while (!queue.isEmpty()) {
+
+                root = queue.poll();
+
+                if (isMistakeFound(root))
+                    return;
+
+                if(root.left != null)
+                    queue.offer(root.left);
+
+                if(root.right != null)
+                    queue.offer(root.right);
+
+            }
+
+        }
+
+    }
+
+    private boolean isMistakeFound (TreeNode root) {
+
+        boolean isFound = false;
+
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+
+        if(left == null && right == null)
+            return isFound;
+        else if (left == null && right != null) {
+            //swap root and left
+            if (root.val > right.val) {
+                int tmp = right.val;
+                right.val = root.val;
+                root.val = tmp;
+                isFound = true;
+            }
+        } else if (left != null && right == null) {
+            if (root.val < left.val) {
+                int tmp = left.val;
+                left.val = root.val;
+                root.val = tmp;
+                isFound = true;
+            }
+        } else {
+            //swap root and left
+            if (root.val < left.val && root.val < right.val) {
+                int tmp = left.val;
+                left.val = root.val;
+                root.val = tmp;
+                isFound = true;
+            }
+
+            //swap root and right
+            if (root.val > right.val && root.val > left.val) {
+                int tmp = right.val;
+                right.val = root.val;
+                root.val = tmp;
+                isFound = true;
+            }
+
+            //swap left and right
+            if (left.val > right.val && root.val >= left.val) {
+                int tmp = right.val;
+                right.val = root.val;
+                root.val = tmp;
+                isFound = true;
+            }
+        }
+
+
+
+
+
+        return isFound;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
