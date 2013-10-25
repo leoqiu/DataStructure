@@ -83,6 +83,8 @@ public class RecoverBinarySearchTree{
             return;
         else {
 
+            TreeNode rootN = root;
+
             Queue<TreeNode> queue = new LinkedList<TreeNode>();
             queue.offer(root);
 
@@ -90,8 +92,8 @@ public class RecoverBinarySearchTree{
 
                 root = queue.poll();
 
-                if (isMistakeFound(root))
-                    return;
+
+                recover(root);
 
                 if(root.left != null)
                     queue.offer(root.left);
@@ -101,9 +103,68 @@ public class RecoverBinarySearchTree{
 
             }
 
+            System.out.print(2);
+
         }
 
+
+
     }
+
+    private void recover (TreeNode root) {
+
+        if ( (root.left != null && root.right == null) && root.val < root.left.val) {
+
+            recover(root.left);
+            int tmp = root.val;
+            root.val = root.left.val;
+            root.left.val = tmp;
+
+        } else if ( (root.right != null && root.left == null) && root.val > root.right.val) {
+
+            recover(root.right);
+            int tmp = root.val;
+            root.val = root.right.val;
+            root.right.val = tmp;
+
+        } else if (root.right != null && root.left != null) {
+
+            int leftVal = Math.min(root.val, Math.min(root.left.val, root.right.val));
+            int rightVal = Math.max(root.val, Math.max(root.left.val, root.right.val));
+            int rootVal = root.val + root.left.val + root.right.val - leftVal - rightVal;
+
+            if (root.val != rootVal || root.left.val != leftVal || root.right.val != rightVal) {
+                recover(root.left);
+                recover(root.right);
+            } else
+                return;
+
+            root.val = rootVal;
+            root.left.val = leftVal;
+            root.right.val = rightVal;
+        } else
+            return;
+
+    }
+
+
+    public static void main (String[] args) {
+
+        RecoverBinarySearchTree s = new RecoverBinarySearchTree();
+        TreeNode n1 = new TreeNode(3);
+        TreeNode n2 = new TreeNode(1);
+        TreeNode n3 = new TreeNode(2);
+        n1.right = n2;
+        n2.left = n3;
+
+        s.recoverTree(n1);
+
+
+    }
+
+
+
+
 
     private boolean isMistakeFound (TreeNode root) {
 
@@ -161,6 +222,8 @@ public class RecoverBinarySearchTree{
 
         return isFound;
     }
+
+
 }
 
 
