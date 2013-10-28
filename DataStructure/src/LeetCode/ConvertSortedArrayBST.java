@@ -32,6 +32,8 @@ public class ConvertSortedArrayBST {
 
             int middle = (low+high) / 2;
             TreeNode root = new TreeNode(num[middle]);
+
+
             root.left = buildBST(num, low, middle-1);
             root.right = buildBST(num, middle+1, high);
 
@@ -44,7 +46,7 @@ public class ConvertSortedArrayBST {
     public static void main (String[] args) {
 
         ConvertSortedArrayBST s = new ConvertSortedArrayBST();
-        int[] num = {1,2,3,4,5,6,7,8,9,10};
+        int[] num = {1,2,3,4,5,6,7,8,9,10,11};
         s.sortedArrayToBST(num);
     }
 
