@@ -34,7 +34,6 @@ public class LongestSubstringWithoutRepeatingChar {
             }
 
             hash.put(chars[i], 0);
-
         }
 
         maxCount = Math.max(maxCount, n - startIndex);
@@ -49,7 +48,6 @@ public class LongestSubstringWithoutRepeatingChar {
                 return i+1;
             }
         }
-
         return 0;
     }
 

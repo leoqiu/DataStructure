@@ -50,7 +50,6 @@ public class PalindromeNumber {
                 x = (x - left*divisor - right) / 10;
                 curZeroNums = curZeroNums - 2;
             }
-
         }
 
         return true;

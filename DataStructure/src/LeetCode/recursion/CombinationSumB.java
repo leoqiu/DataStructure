@@ -65,7 +65,6 @@ public class CombinationSumB {
                 integers.remove(integers.size() - 1);
 
             }
-
         }
     }
 

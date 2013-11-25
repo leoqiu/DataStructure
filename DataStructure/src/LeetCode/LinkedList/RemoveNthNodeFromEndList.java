@@ -1,4 +1,4 @@
-package LeetCode;
+package LeetCode.LinkedList;
 
 /**
  * Created with IntelliJ IDEA.

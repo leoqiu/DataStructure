@@ -83,11 +83,39 @@ public class GenerateParentheses {
     }
 
 
+
+    private void combinationPar (ArrayList<String> res, StringBuilder solution, int len, int n, int leftNum, int rightNum)  {
+
+        if (len == 2*n) {
+            res.add(solution.toString());
+        System.out.println(solution.toString());
+            return;
+        }
+
+        if(leftNum < n) {
+            solution.append('(');
+            combinationPar(res, solution, len+1, n, leftNum+1, rightNum);
+            solution.deleteCharAt(solution.length()-1);
+        }
+
+        if(rightNum < leftNum) {
+            solution.append(')');
+            combinationPar(res, solution, len+1, n, leftNum, rightNum+1);
+            solution.deleteCharAt(solution.length()-1);
+        }
+    }
+
+
+
     public static void main (String[] args) {
 
         GenerateParentheses s = new GenerateParentheses();
         s.generateParenthesis(4);
 
+        ArrayList<String> res = new ArrayList<String>();
+        StringBuilder solution = new StringBuilder();
+        s.combinationPar(res, solution, 0, 5, 0, 0);
+        System.out.print("");
     }
 
 

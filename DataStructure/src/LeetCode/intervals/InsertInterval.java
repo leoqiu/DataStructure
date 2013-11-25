@@ -18,59 +18,69 @@ public class InsertInterval {
 
     public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
 
+        int n =intervals.size();
 
-        if (intervals.size() == 0)
+        if (n == 0) {
+            intervals.add(newInterval);
             return intervals;
+        }
         else {
+            //[1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16]
+            //insert on head
+            Interval curI = intervals.get(0);
+            if (newInterval.start <= curI.start) {
+                intervals.add(0, newInterval);
+                reMerge(0, intervals);
+                return intervals;
+            }
 
-            for (int i = 0; i < intervals.size(); i++) {
+            //insert or merge on tail
+            Interval nextI = intervals.get(n-1);
+            if (newInterval.start >= nextI.start) {
+                intervals.add(newInterval);
+                reMerge(n-1, intervals);
+                return intervals;
+            }
 
-                Interval cur = intervals.get(i);
 
-                if (newInterval.start >= cur.start && newInterval.start <= cur.end) {
+            for (int i = 0; i < n-1; i++) {
+                curI = intervals.get(i);
+                nextI = intervals.get(i+1);
 
-                    Interval mergedI = new Interval(cur.start, Math.max(cur.end, newInterval.end));
-                    intervals.remove(i);
-                    intervals.add(i, mergedI);
-
-                    //re merge the intervals
+                if (newInterval.start >= curI.start && newInterval.start <= nextI.start) {
+                    intervals.add(i+1, newInterval);
                     reMerge(i, intervals);
                     break;
-
                 }
-
-                if (newInterval.start > cur.end) {
-                    intervals.add(i+1, newInterval);
-
-                    //re merge the intervals
-                    reMerge(i+1, intervals);
-                    break;
-                }
-
 
             }
 
         }
 
         return intervals;
+
     }
 
     private void reMerge (int start, ArrayList<Interval> intervals) {
 
         Interval pre = intervals.get(start);
-        for (int i = start+1; i < intervals.size(); i++) {
+        for (int i = start+1; i < intervals.size();) {
 
             Interval next = intervals.get(i);
 
             if(next.start >= pre.start && next.start <= pre.end) {
                 Interval mergedI = new Interval(pre.start, Math.max(pre.end, next.end));
+                //remove 2 elements
                 intervals.remove(pre);
                 intervals.remove(next);
-                intervals.add(start, mergedI);
+                intervals.add(i-1, mergedI);
                 pre = mergedI;
+            } else {
+                pre = next;
+                i++;
             }
-        }
 
+        }
     }
 
     public static void main (String[] args) {
