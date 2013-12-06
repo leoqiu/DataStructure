@@ -11,9 +11,24 @@ import java.util.*;
  *
  * Algorithm core : shortest path from one node to another in graph
  */
+
+class GWLNode {
+
+    String word;
+    boolean isVisited;
+
+    public GWLNode (String word, boolean visited) {
+
+        this.word = word;
+        this.isVisited = false;
+
+    }
+
+}
+
 public class WordLadder {
 
-    private ArrayList<GWLNode> getListGraph (String start, String end, HashSet<String> set) {
+    private int ladderLength (String start, String end, HashSet<String> set) {
 
         int len = start.length();
 
@@ -30,7 +45,7 @@ public class WordLadder {
 
         list.add(new GWLNode(end, false));
 
-        return list;
+        return getShortestDistances(0, list.size() - 1, list.size(), list);
     }
 
 
@@ -109,25 +124,24 @@ public class WordLadder {
     public static void main (String[] args) {
 
         HashSet<String> set = new HashSet<String>();
-//        set.add("hot");
-//        set.add("dot");
-//        set.add("dog");
-//        set.add("lot");
-//        set.add("log");
-//        String start = "hit";
-//        String end = "cog";
+        set.add("hot");
+        set.add("dot");
+        set.add("dog");
+        set.add("lot");
+        set.add("log");
+        String start = "hit";
+        String end = "cog";
 
-        set.add("a");
-        set.add("b");
-        set.add("c");
-        String start = "a";
-        String end = "c";
+//        set.add("a");
+//        set.add("b");
+//        set.add("c");
+//        String start = "a";
+//        String end = "c";
 
         WordLadder wl = new WordLadder();
 
-        ArrayList<GWLNode> list = wl.getListGraph(start, end, set);
-        int n = list.size();
-        System.out.println(wl.getShortestDistances(0, list.size() - 1, n, list));
+
+        System.out.println(wl.ladderLength(start, end, set));
 
 
     }
@@ -141,19 +155,7 @@ public class WordLadder {
 }
 
 
-class GWLNode {
 
-    String word;
-    boolean isVisited;
-
-    public GWLNode (String word, boolean visited) {
-
-        this.word = word;
-        this.isVisited = false;
-
-    }
-
-}
 
 
 
