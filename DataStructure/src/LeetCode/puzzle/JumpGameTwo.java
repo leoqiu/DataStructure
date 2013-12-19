@@ -44,6 +44,11 @@ public class JumpGameTwo {
             start = end+1;
             end = curMax;
 
+            if(start > end)
+                return -1;
+
+System.out.println(start + "," +  end);
+
         }
 
         return 0;
@@ -57,8 +62,8 @@ public class JumpGameTwo {
 
         //int[] A = {2,3,1,1,4,1,1,2,5,7,1,1,2,2,3,1,1,1,2};
         //int[] A = {2,3,1,1,4};
-        //int[] A = {5,9,3,2,1,0,2,3,3,1,0,0};
-        int[] A = {0,1};
+        int[] A = {5,9,3,2,1,0,2,3,3,1,0,0,0};
+        //int[] A = {0,1};
         JumpGameTwo s = new JumpGameTwo();
         System.out.print(s.jump(A));
     }

@@ -114,7 +114,7 @@ public class GenerateParentheses {
 
         ArrayList<String> res = new ArrayList<String>();
         StringBuilder solution = new StringBuilder();
-        s.combinationPar(res, solution, 0, 5, 0, 0);
+        s.combinationPar(res, solution, 0, 4, 0, 0);
         System.out.print("");
     }
 
